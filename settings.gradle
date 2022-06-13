@@ -1,0 +1,3 @@
+rootProject.name = 'projet-prog-reparti'
+
+include 'projet-prog-reparti-api', 'projet-prog-reparti-ui'
