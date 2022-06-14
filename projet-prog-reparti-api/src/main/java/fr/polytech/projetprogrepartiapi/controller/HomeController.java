@@ -1,10 +1,12 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import fr.polytech.projetprogrepartiapi.entities.*;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +16,10 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/home")
+@RequestMapping(value={"/api/home", "/api"})
 
 public class HomeController {
-    private final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
+    private final Logger logger = LoggerFactory.getLogger(HomeController.class);
     private final UtilisateurRepository utilisateurRepository;
 
     public HomeController(UtilisateurRepository utilisateurRepository){
@@ -27,13 +29,13 @@ public class HomeController {
      * @return ResponseEntity Home
      */
     @GetMapping
-    public ResponseEntity<String> home() {
+    public ResponseEntity<Object> home() {
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
-        int id = -1;
+        int id = 2;
         Optional<Utilisateur> u = uService.getUtilisateurById(id);
         boolean value = uService.utilisateurExists(id);
         logger.info("GET home");
-        String message = "\"Utilisateur non connecté !\"";
+        String message = "Utilisateur non connecté !";
 
         if(u.isPresent()){
             message = "Je m'appelle "+ u.get().getNomUtil() + "!";
@@ -60,7 +62,8 @@ public class HomeController {
             }
             message = "\"" +message + "\"";
         }
-        return ResponseEntity.ok(message);
+
+        return ResponseEntity.ok(u.get());
     }
 
 }
