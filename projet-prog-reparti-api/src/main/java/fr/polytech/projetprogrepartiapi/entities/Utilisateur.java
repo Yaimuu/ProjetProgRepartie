@@ -22,6 +22,8 @@ public class Utilisateur {
     @Basic
     @Column(name = "role", nullable = false, length = 100)
     private String role;
+
+
     @Basic
     @Column(name = "email", nullable = true, length = 255)
     private String email;
@@ -34,6 +36,22 @@ public class Utilisateur {
     @OneToMany(mappedBy = "utilisateurByFkUser")
     private Collection<Inscription> inscriptionsById;
 
+    protected Utilisateur(){}
+    /**
+     * Seuls les paramètres obligatoires sont dans le constructeur. Il faudra passer les autres avec les setters
+     * @param numUtil
+     * @param nomUtil
+     * @param motPasse /!\ il faut qu'il soit hash avant d'être passé en paramètre
+     * @param salt
+     * @param role
+     */
+    public Utilisateur(int numUtil, String nomUtil, String motPasse, String salt, String role){
+        this.numUtil = numUtil;
+        this.nomUtil = nomUtil;
+        this.motPasse = motPasse;
+        this.salt = salt;
+        this.role = role;
+    }
     public Collection<Inscription> getInscriptionsById() {
         return inscriptionsById;
     }

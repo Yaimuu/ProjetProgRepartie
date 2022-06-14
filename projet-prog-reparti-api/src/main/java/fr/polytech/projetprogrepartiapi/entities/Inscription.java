@@ -22,6 +22,11 @@ public class Inscription {
     @OneToMany(mappedBy = "inscriptionByFkInscription")
     private Collection<InscriptionAction> inscriptionActionsById;
 
+    protected Inscription(){}
+    public Inscription(Utilisateur user, Mission mission){
+        utilisateurByFkUser = user;
+        missionByFkMission = mission;
+    }
     public int getId() {
         return id;
     }

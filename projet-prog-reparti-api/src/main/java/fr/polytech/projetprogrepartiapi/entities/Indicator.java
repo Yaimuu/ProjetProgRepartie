@@ -21,6 +21,10 @@ public class Indicator {
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
     private Action actionByFkAction;
 
+    protected Indicator(){}
+    public Indicator(Action action){
+        actionByFkAction = action;
+    }
     public int getId() {
         return id;
     }

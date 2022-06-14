@@ -17,6 +17,7 @@ public class Mission {
     @OneToMany(mappedBy = "missionByFkMission")
     private Collection<Inscription> inscriptionsById;
 
+    public Mission(){}
     public int getId() {
         return id;
     }

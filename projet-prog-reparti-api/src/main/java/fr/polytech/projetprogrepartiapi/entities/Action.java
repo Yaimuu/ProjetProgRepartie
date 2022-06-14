@@ -32,6 +32,7 @@ public class Action {
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<InscriptionAction> inscriptionActionsById;
 
+    public Action(){}
     public int getId() {
         return id;
     }

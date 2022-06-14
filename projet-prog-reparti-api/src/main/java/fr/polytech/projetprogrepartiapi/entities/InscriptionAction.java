@@ -30,7 +30,11 @@ public class InscriptionAction {
         this.id = id;
     }
 
-
+    protected InscriptionAction(){}
+    public InscriptionAction(Inscription inscription, Action action){
+        inscriptionByFkInscription = inscription;
+        actionByFkAction = action;
+    }
     public Integer getSort() {
         return sort;
     }
