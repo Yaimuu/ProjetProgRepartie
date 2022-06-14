@@ -3,6 +3,7 @@ package fr.polytech.projetprogrepartiapi.entities;
 import javax.persistence.*;
 import java.util.Collection;
 
+
 @Entity
 public class Action {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,21 +11,22 @@ public class Action {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "fk_action", nullable = true)
-    private Integer fkAction;
-    @Basic
     @Column(name = "wording", nullable = true, length = 25)
     private String wording;
     @Basic
-    @Column(name = "scoreMinimum", nullable = true)
+    @Column(name = "scoreminimum", nullable = true)
     private Integer scoreMinimum;
     @ManyToOne
     @JoinColumn(name = "fk_action", referencedColumnName = "id")
     private Action actionByFkAction;
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<Action> actionsById;
-    @OneToMany(mappedBy = "actionByFkAction")
-    private Collection<ActionMission> actionMissionsById;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "action__mission", joinColumns = {
+            @JoinColumn(name = "fk_action", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "fk_mission",
+                    nullable = false, updatable = false) })
+    private Collection<Mission> MissionsById;
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<Indicator> indicatorsById;
     @OneToMany(mappedBy = "actionByFkAction")
@@ -38,13 +40,6 @@ public class Action {
         this.id = id;
     }
 
-    public Integer getFkAction() {
-        return fkAction;
-    }
-
-    public void setFkAction(Integer fkAction) {
-        this.fkAction = fkAction;
-    }
 
     public String getWording() {
         return wording;
@@ -78,13 +73,10 @@ public class Action {
         this.actionsById = actionsById;
     }
 
-    public Collection<ActionMission> getActionMissionsById() {
-        return actionMissionsById;
+    public Collection<Mission> getMissionsById() {
+        return MissionsById;
     }
 
-    public void setActionMissionsById(Collection<ActionMission> actionMissionsById) {
-        this.actionMissionsById = actionMissionsById;
-    }
 
     public Collection<Indicator> getIndicatorsById() {
         return indicatorsById;

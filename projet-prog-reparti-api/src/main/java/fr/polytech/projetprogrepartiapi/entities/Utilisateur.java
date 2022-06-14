@@ -6,13 +6,13 @@ import javax.persistence.*;
 public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "NumUtil", nullable = false)
+    @Column(name = "numutil", nullable = false)
     private int numUtil;
     @Basic
-    @Column(name = "NomUtil", nullable = false, length = 100)
+    @Column(name = "nomutil", nullable = false, length = 100)
     private String nomUtil;
     @Basic
-    @Column(name = "MotPasse", nullable = false, length = 100)
+    @Column(name = "motpasse", nullable = false, length = 100)
     private String motPasse;
     @Basic
     @Column(name = "salt", nullable = false, length = 100)
@@ -29,6 +29,9 @@ public class Utilisateur {
     @Basic
     @Column(name = "forename", nullable = true, length = 50)
     private String forename;
+
+    @OneToMany
+
 
     public int getNumUtil() {
         return numUtil;
@@ -93,4 +96,6 @@ public class Utilisateur {
     public void setForename(String forename) {
         this.forename = forename;
     }
+
+
 }

@@ -9,16 +9,13 @@ public class Indicator {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "fk_action", nullable = false)
-    private int fkAction;
-    @Basic
     @Column(name = "wording", nullable = true, length = 50)
     private String wording;
     @Basic
-    @Column(name = "valueIfCheck", nullable = true)
+    @Column(name = "valueifcheck", nullable = true)
     private Integer valueIfCheck;
     @Basic
-    @Column(name = "valueIfUnCheck", nullable = true)
+    @Column(name = "valueifunCheck", nullable = true)
     private Integer valueIfUnCheck;
     @ManyToOne
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
@@ -30,14 +27,6 @@ public class Indicator {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFkAction() {
-        return fkAction;
-    }
-
-    public void setFkAction(int fkAction) {
-        this.fkAction = fkAction;
     }
 
     public String getWording() {

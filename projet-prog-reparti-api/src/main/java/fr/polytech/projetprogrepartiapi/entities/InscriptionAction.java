@@ -10,12 +10,6 @@ public class InscriptionAction {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "fk_inscription", nullable = false)
-    private int fkInscription;
-    @Basic
-    @Column(name = "fk_action", nullable = false)
-    private int fkAction;
-    @Basic
     @Column(name = "sort", nullable = true)
     private Integer sort;
     @Basic
@@ -36,21 +30,6 @@ public class InscriptionAction {
         this.id = id;
     }
 
-    public int getFkInscription() {
-        return fkInscription;
-    }
-
-    public void setFkInscription(int fkInscription) {
-        this.fkInscription = fkInscription;
-    }
-
-    public int getFkAction() {
-        return fkAction;
-    }
-
-    public void setFkAction(int fkAction) {
-        this.fkAction = fkAction;
-    }
 
     public Integer getSort() {
         return sort;

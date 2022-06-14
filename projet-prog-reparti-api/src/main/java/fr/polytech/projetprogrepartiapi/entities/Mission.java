@@ -12,8 +12,8 @@ public class Mission {
     @Basic
     @Column(name = "wording", nullable = true, length = 25)
     private String wording;
-    @OneToMany(mappedBy = "missionByFkMission")
-    private Collection<ActionMission> actionMissionsById;
+    @ManyToMany(mappedBy = "MissionsById")
+    private Collection<Action> actionsById;
     @OneToMany(mappedBy = "missionByFkMission")
     private Collection<Inscription> inscriptionsById;
 
@@ -33,12 +33,12 @@ public class Mission {
         this.wording = wording;
     }
 
-    public Collection<ActionMission> getActionMissionsById() {
-        return actionMissionsById;
+    public Collection<Action> getActionsById() {
+        return actionsById;
     }
 
-    public void setActionMissionsById(Collection<ActionMission> actionMissionsById) {
-        this.actionMissionsById = actionMissionsById;
+    public void setActionsById(Collection<Action> actionMissionsById) {
+        this.actionsById = actionMissionsById;
     }
 
     public Collection<Inscription> getInscriptionsById() {

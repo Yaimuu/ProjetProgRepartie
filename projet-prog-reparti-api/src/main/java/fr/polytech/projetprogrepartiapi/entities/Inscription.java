@@ -11,12 +11,6 @@ public class Inscription {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "fk_user", nullable = false)
-    private int fkUser;
-    @Basic
-    @Column(name = "fk_mission", nullable = false)
-    private int fkMission;
-    @Basic
     @Column(name = "date", nullable = true)
     private Date date;
     @ManyToOne
@@ -34,22 +28,6 @@ public class Inscription {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFkUser() {
-        return fkUser;
-    }
-
-    public void setFkUser(int fkUser) {
-        this.fkUser = fkUser;
-    }
-
-    public int getFkMission() {
-        return fkMission;
-    }
-
-    public void setFkMission(int fkMission) {
-        this.fkMission = fkMission;
     }
 
     public Date getDate() {
