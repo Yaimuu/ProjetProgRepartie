@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,8 +31,16 @@ public class Utilisateur {
     @Basic
     @Column(name = "forename", nullable = true, length = 50)
     private String forename;
+    @OneToMany(mappedBy = "utilisateurByFkUser")
+    private Collection<Inscription> inscriptionsById;
 
-    @OneToMany
+    public Collection<Inscription> getInscriptionsById() {
+        return inscriptionsById;
+    }
+
+    public void setInscriptionsById(Collection<Inscription> inscriptionsById) {
+        this.inscriptionsById = inscriptionsById;
+    }
 
 
     public int getNumUtil() {
@@ -96,6 +106,5 @@ public class Utilisateur {
     public void setForename(String forename) {
         this.forename = forename;
     }
-
 
 }
