@@ -10,6 +10,11 @@ import { FooterComponent } from './elements/footer/footer.component';
 import { LayoutComponent } from './core/layout/layout.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { LearnersComponent } from './pages/learners/learners.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from "@angular/material/table";
+import {MatInputModule} from "@angular/material/input";
+import { ButtonComponent } from './shared/button/button.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -19,12 +24,17 @@ registerLocaleData(localeFr, 'fr');
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    LayoutComponent
+    LayoutComponent,
+    LearnersComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatInputModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent]

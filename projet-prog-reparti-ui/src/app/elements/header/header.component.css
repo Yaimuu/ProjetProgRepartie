@@ -9,6 +9,7 @@ header {
     color: var(--white);
 }
 
+
 header > nav {
     padding: 0.5em;
 }
@@ -18,7 +19,7 @@ header > nav > ul{
     justify-content: space-around;
 }
 
-header > nav > ul * {
+header > nav > ul, li, a {
     text-decoration: none;
     list-style: none;
 
@@ -30,4 +31,8 @@ header > nav > ul * {
 header > h1 {
   font-weight: normal;
   font-size: 24px;
+}
+
+a:hover {
+  color: var(--light_green);
 }
