@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -14,6 +16,7 @@ public class Inscription {
     @Column(name = "date", nullable = true)
     private Date date;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "fk_user", referencedColumnName = "NumUtil", nullable = false)
     private Utilisateur utilisateurByFkUser;
     @ManyToOne

@@ -1,5 +1,8 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -34,6 +37,7 @@ public class Utilisateur {
     @Column(name = "forename", nullable = true, length = 50)
     private String forename;
     @OneToMany(mappedBy = "utilisateurByFkUser")
+    @JsonBackReference
     private Collection<Inscription> inscriptionsById;
 
     protected Utilisateur(){}
