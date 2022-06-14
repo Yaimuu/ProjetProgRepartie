@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="fr.polytech.projetprogrepartiapi.entities.ActionMission">
+        <table name="action__mission" schema="projetpermis1" catalog=""/>
+        <id-class class="fr.polytech.projetprogrepartiapi.entities.ActionMissionPK"/>
+        <attributes>
+            <id name="fkAction">
+                <column name="fk_action" precision="11"/>
+            </id>
+            <id name="fkMission">
+                <column name="fk_mission" precision="11"/>
+            </id>
+            <many-to-one name="actionByFkAction" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Action">
+                <join-column name="fk_action" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="missionByFkMission" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Mission">
+                <join-column name="fk_mission" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>

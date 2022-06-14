@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="fr.polytech.projetprogrepartiapi.entities.InscriptionAction">
+        <table name="inscription__action" schema="projetpermis1" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="fkInscription">
+                <column name="fk_inscription" precision="11"/>
+            </basic>
+            <basic name="fkAction">
+                <column name="fk_action" precision="11"/>
+            </basic>
+            <basic name="sort">
+                <column name="sort" nullable="false" precision="11"/>
+            </basic>
+            <basic name="score">
+                <column name="score" nullable="false" precision="11"/>
+            </basic>
+            <many-to-one name="inscriptionByFkInscription" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Inscription">
+                <join-column name="fk_inscription" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="actionByFkAction" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Action">
+                <join-column name="fk_action" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>

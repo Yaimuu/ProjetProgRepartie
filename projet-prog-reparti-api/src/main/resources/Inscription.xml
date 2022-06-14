@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="fr.polytech.projetprogrepartiapi.entities.Inscription">
+        <table name="inscription" schema="projetpermis1" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="fkUser">
+                <column name="fk_user" precision="11"/>
+            </basic>
+            <basic name="fkMission">
+                <column name="fk_mission" precision="11"/>
+            </basic>
+            <basic name="date">
+                <column name="date" nullable="false" precision="-1"/>
+            </basic>
+            <many-to-one name="utilisateurByFkUser" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Utilisateur">
+                <join-column name="fk_user" referenced-column-name="NumUtil"/>
+            </many-to-one>
+            <many-to-one name="missionByFkMission" optional="true"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.Mission">
+                <join-column name="fk_mission" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="inscriptionActionsById" mapped-by="inscriptionByFkInscription"
+                         target-entity="fr.polytech.projetprogrepartiapi.entities.InscriptionAction"/>
+        </attributes>
+    </entity>
+</entity-mappings>

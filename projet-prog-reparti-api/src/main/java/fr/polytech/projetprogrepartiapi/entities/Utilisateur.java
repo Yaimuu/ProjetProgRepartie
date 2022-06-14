@@ -1,0 +1,96 @@
+package fr.polytech.projetprogrepartiapi.entities;
+
+import javax.persistence.*;
+
+@Entity
+public class Utilisateur {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "NumUtil", nullable = false)
+    private int numUtil;
+    @Basic
+    @Column(name = "NomUtil", nullable = false, length = 100)
+    private String nomUtil;
+    @Basic
+    @Column(name = "MotPasse", nullable = false, length = 100)
+    private String motPasse;
+    @Basic
+    @Column(name = "salt", nullable = false, length = 100)
+    private String salt;
+    @Basic
+    @Column(name = "role", nullable = false, length = 100)
+    private String role;
+    @Basic
+    @Column(name = "email", nullable = true, length = 255)
+    private String email;
+    @Basic
+    @Column(name = "surname", nullable = true, length = 50)
+    private String surname;
+    @Basic
+    @Column(name = "forename", nullable = true, length = 50)
+    private String forename;
+
+    public int getNumUtil() {
+        return numUtil;
+    }
+
+    public void setNumUtil(int numUtil) {
+        this.numUtil = numUtil;
+    }
+
+    public String getNomUtil() {
+        return nomUtil;
+    }
+
+    public void setNomUtil(String nomUtil) {
+        this.nomUtil = nomUtil;
+    }
+
+    public String getMotPasse() {
+        return motPasse;
+    }
+
+    public void setMotPasse(String motPasse) {
+        this.motPasse = motPasse;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getForename() {
+        return forename;
+    }
+
+    public void setForename(String forename) {
+        this.forename = forename;
+    }
+}
