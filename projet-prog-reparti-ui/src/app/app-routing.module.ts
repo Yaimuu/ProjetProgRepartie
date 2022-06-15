@@ -6,6 +6,7 @@ import {LearnersComponent} from "./pages/learners/learners.component";
 import {MissionsComponent} from "./pages/missions/missions.component";
 import {ConnectionComponent} from "./pages/connection/connection.component";
 import {RegistrationComponent} from "./pages/registration/registration.component";
+import {ProfileComponent} from "./pages/profile/profile.component";
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: "connection", component: ConnectionComponent },
       { path: "registration", component: RegistrationComponent },
       { path: "learners", component: LearnersComponent },
+      { path: "profile/:userId", component: ProfileComponent },
       // { path: "games", component: GamesComponent },
       // { path: "actions", component: DemandsPageComponent },
     ],

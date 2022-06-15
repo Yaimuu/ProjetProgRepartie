@@ -45,7 +45,6 @@ export class ConnectionComponent implements OnInit {
     this.apiService.login(this.form).subscribe(
       data => {
         this.localStorage.setItem("ACCESS_TOKEN", data.accessToken);
-        this.localStorage.setItem("USER_DATA", JSON.stringify(data));
         this.urlService.navigateToHome();
       },
       err => {
