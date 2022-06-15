@@ -23,7 +23,19 @@ public class UtilisateurService {
         return utilisateurRepository.existsById(id);
     }
 
-    public List<Utilisateur> getAllUtilisateur(){
+    public List<Utilisateur> getAllUtilisateurs(){
         return utilisateurRepository.findAll();
+    }
+
+    public void createUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.save(utilisateur);
+    }
+
+    public long getNumberUtilisateurs(){
+        return utilisateurRepository.count();
+    }
+
+    public void deleteUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.delete(utilisateur);
     }
 }
