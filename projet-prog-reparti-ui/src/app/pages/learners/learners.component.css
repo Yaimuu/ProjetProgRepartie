@@ -1,0 +1,31 @@
+.block-with-tips {
+  background-color: var(--orange);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.key-word {
+  color: var(--dark_green);
+}
+
+.icon-cross:hover {
+  cursor: pointer;
+  color: var(--dark_green);
+}
+
+table {
+  width: 100%;
+}
+
+a {
+  color: var(--light_green);
+}
+
+th.mat-header-cell, td {
+  text-align: center;
+}

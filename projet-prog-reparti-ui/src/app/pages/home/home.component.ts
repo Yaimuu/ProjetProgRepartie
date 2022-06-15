@@ -15,9 +15,9 @@ export class HomeComponent implements OnInit {
   message: String = ""
   date: Date = new Date()
   currentDate: string | null = ""
-  
+
   constructor(private homeService: HomeService, private datePipe: DatePipe) {
-    
+
   }
 
   ngOnInit(): void {
@@ -45,9 +45,9 @@ export class HomeComponent implements OnInit {
   }
 
   public getCurrentDate() {
-    this.currentDate = this.datePipe.transform(this.date, 'dd MMMM YYYY');
+    this.currentDate = this.datePipe.transform(this.date, 'dd MMMM YYYY hh:mm:ss z');
   }
 
-  
+
 
 }
