@@ -8,6 +8,8 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "utilisateur", schema = "projetpermis1", catalog = "")
+@NamedQuery(name = "Utilisateur.rechercheNom", query = "select ut from Utilisateur ut where ut.nomUtil = ?1")
 public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
