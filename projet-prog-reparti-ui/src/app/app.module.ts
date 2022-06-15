@@ -21,6 +21,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from "@angular/material/icon";
 import { ConnectionComponent } from './pages/connection/connection.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -35,7 +36,8 @@ registerLocaleData(localeFr, 'fr');
     ButtonComponent,
     MissionsComponent,
     SearchBarComponent,
-    ConnectionComponent
+    ConnectionComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

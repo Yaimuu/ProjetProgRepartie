@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
-import {LocalStorage} from "@ngx-pwa/local-storage";
 import {UrlService} from "../../core/services/url.service";
+import {LocalStorage} from "@ngx-pwa/local-storage";
 
 @Component({
-  selector: 'app-connection',
-  templateUrl: './connection.component.html',
-  styleUrls: ['./connection.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class ConnectionComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
 
   form: any = {
+    surname: null,
+    forename: null,
+    email: null,
     username: null,
     password: null
   };
@@ -18,14 +21,23 @@ export class ConnectionComponent implements OnInit {
   error = "";
 
   constructor(private apiService: ApiService,
-              private localStorage: LocalStorage,
-              private urlService: UrlService) { }
+              private urlService: UrlService,
+              private localStorage: LocalStorage) { }
 
   ngOnInit(): void {
   }
 
   formValidation() {
-    if (!this.form.username) {
+    if (!this.form.surname) {
+      this.error = "Veuillez renseigner votre nom."
+      return false;
+    } else if (!this.form.forename){
+      this.error = "Veuillez renseigner votre prénom."
+      return false;
+    } else if (!this.form.email){
+      this.error = "Veuillez renseigner votre email."
+      return false;
+    } else if (!this.form.username) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
       return false;
     } else if (!this.form.password) {
@@ -37,12 +49,12 @@ export class ConnectionComponent implements OnInit {
     }
   }
 
-  signIn() {
+  register() {
     if (!this.formValidation()) {
       return;
     }
 
-    this.apiService.login(this.form).subscribe(
+    this.apiService.register(this.form).subscribe(
       data => {
         this.localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         this.localStorage.setItem("USER_DATA", JSON.stringify(data));

@@ -16,19 +16,12 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(this.baseUrl + 'signin', {
-      username,
-      password
-    }, this.httpOptions);
+  login(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'signin', JSON.stringify(data), this.httpOptions);
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(this.baseUrl + 'signup', {
-      username,
-      email,
-      password
-    }, this.httpOptions);
+  register(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'signup', JSON.stringify(data), this.httpOptions);
   }
 }
 

@@ -28,6 +28,18 @@ section {
 
 html, body { height: 100%; }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-error {
+  margin-top: 16px;
+  color: var(--red);
+  text-align: center;
+}
+
 /* MATERIAL ANGULAR */
 
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
@@ -69,8 +81,12 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   color: var(--black) !important;
 }
 
-.connection-form .mat-form-field-appearance-fill .mat-form-field-flex {
+.form .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: var(--white) !important;
+}
+
+.form mat-form-field {
+  width: 300px !important;
 }
 
 .mat-focused .mat-form-field-label {
@@ -87,3 +103,5 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   /*change color of underline when focused*/
   background-color: var(--black) !important;
 }
+
+
