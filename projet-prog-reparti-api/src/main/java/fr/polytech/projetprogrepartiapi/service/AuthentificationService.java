@@ -1,15 +1,19 @@
 package fr.polytech.projetprogrepartiapi.service;
 
 
+import fr.polytech.projetprogrepartiapi.controller.UtilisateurController;
 import fr.polytech.projetprogrepartiapi.entities.LoginRequest;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.helpers.PasswordHelper;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthentificationService implements IAuthentificationService {
+    private final Logger logger = LoggerFactory.getLogger(UtilisateurController.class);
 
     private UtilisateurRepository unUtilisateurRepostory;
 
@@ -21,7 +25,7 @@ public class AuthentificationService implements IAuthentificationService {
     @Override
     public Utilisateur authentification(LoginRequest unUti) throws Exception {
         Utilisateur unUtilisateur = null;
-        String message;
+        String message = "";
         String login = unUti.getNomUtil();
         String pwd = unUti.getMotPasse();
         unUtilisateur = unUtilisateurRepostory.rechercheNom(unUti.getNomUtil());
@@ -39,12 +43,15 @@ public class AuthentificationService implements IAuthentificationService {
                 byte[] mdp_byte = PasswordHelper.transformeEnBytes(mdp);
                 if (!PasswordHelper.verifyPassword(monpwdCo, mdp_byte)) {
                     message = "mot de passe erroné";
+                    logger.info(message);
                     return null;
                 }
             } catch (Exception e) {
                 throw e;
             }
         }
+
+        logger.info(message);
         return unUtilisateur;
     }
 }
