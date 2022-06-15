@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import { ButtonComponent } from './shared/button/button.component';
+import { MissionsComponent } from './pages/missions/missions.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -26,7 +27,8 @@ registerLocaleData(localeFr, 'fr');
     FooterComponent,
     LayoutComponent,
     LearnersComponent,
-    ButtonComponent
+    ButtonComponent,
+    MissionsComponent
   ],
   imports: [
     BrowserModule,
