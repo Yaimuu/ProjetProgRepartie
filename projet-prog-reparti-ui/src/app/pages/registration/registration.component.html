@@ -1,0 +1,44 @@
+<div class="content">
+  <h1>Inscription</h1>
+
+  <section>
+    <form class="form">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" name="surname" [(ngModel)]="form.surname">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prénom</mat-label>
+        <input matInput type="text" name="forename" [(ngModel)]="form.forename">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="form.email">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput type="text" name="username" [(ngModel)]="form.username">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput type="password" name="password" [(ngModel)]="form.password">
+      </mat-form-field>
+
+      <app-button [text]="'S\'inscrire'"
+                  [color]="'var(--light_green)'"
+                  (click)="register()"></app-button>
+    </form>
+
+    <ng-container *ngIf="error != ''">
+      <p class="form-error">{{error}}</p>
+    </ng-container>
+  </section>
+
+
+
+</div>

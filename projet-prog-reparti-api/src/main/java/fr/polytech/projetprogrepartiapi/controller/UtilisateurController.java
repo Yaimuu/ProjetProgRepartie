@@ -1,12 +1,10 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
 
-import fr.polytech.projetprogrepartiapi.entities.*;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UtilisateurController {
@@ -44,7 +39,7 @@ public class UtilisateurController {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
             logger.info("is admin : " + uService.isAdmin((int) session.getAttribute("id")));
             if(uService.isAdmin((int) session.getAttribute("id")))
-                return ResponseEntity.ok(uService.getAllUtilisateur());
+                return ResponseEntity.ok(uService.getAllUtilisateurs());
         }
 
         return new ResponseEntity(HttpStatus.FORBIDDEN);

@@ -1,0 +1,12 @@
+.search-bar {
+  display: flex;
+  margin-left: 48px;
+}
+
+.search-icon {
+  background-color: var(--light_grey);
+  padding: 12px 12px 5px 12px;
+  border-radius: 4px 0 0 4px;
+  border-right: 1px solid var(--dark_grey);
+  border-bottom: 2px solid var(--black);
+}

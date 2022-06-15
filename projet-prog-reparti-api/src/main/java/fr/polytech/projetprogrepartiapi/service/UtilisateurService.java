@@ -23,12 +23,25 @@ public class UtilisateurService {
         return utilisateurRepository.existsById(id);
     }
 
-    public List<Utilisateur> getAllUtilisateur(){
+    public List<Utilisateur> getAllUtilisateurs(){
         return utilisateurRepository.findAll();
     }
+
 
     public boolean isAdmin(int id) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
         return utilisateur.isPresent() ? utilisateur.get().isAdmin() : false;
+    }
+
+    public void createUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.save(utilisateur);
+    }
+
+    public long getNumberUtilisateurs(){
+        return utilisateurRepository.count();
+    }
+
+    public void deleteUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.delete(utilisateur);
     }
 }
