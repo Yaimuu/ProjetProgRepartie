@@ -1,20 +1,19 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
 
-import fr.polytech.projetprogrepartiapi.entities.*;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class UtilisateurController {
@@ -28,12 +27,22 @@ public class UtilisateurController {
     }
 
     @GetMapping(value={"/api/user/all", "/api/users"})
-    public ResponseEntity<Object> getAllUsers() {
+    public ResponseEntity<Object> getAllUsers(HttpServletRequest request) {
         logger.info("GET user/all");
 
-        UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+        HttpSession session;
+        session = request.getSession();
+        logger.info(session.getAttribute("id").toString());
 
-        return ResponseEntity.ok(uService.getAllUtilisateur());
+        if(session.getAttribute("id") != null)
+        {
+            UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+            logger.info("is admin : " + uService.isAdmin((int) session.getAttribute("id")));
+            if(uService.isAdmin((int) session.getAttribute("id")))
+                return ResponseEntity.ok(uService.getAllUtilisateurs());
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/api/user/{id}")

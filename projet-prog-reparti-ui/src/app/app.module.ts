@@ -8,7 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './elements/header/header.component';
 import { FooterComponent } from './elements/footer/footer.component';
 import { LayoutComponent } from './core/layout/layout.component';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { LearnersComponent } from './pages/learners/learners.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,12 @@ import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import { ButtonComponent } from './shared/button/button.component';
 import { MissionsComponent } from './pages/missions/missions.component';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatIconModule} from "@angular/material/icon";
+import { ConnectionComponent } from './pages/connection/connection.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -28,7 +34,10 @@ registerLocaleData(localeFr, 'fr');
     LayoutComponent,
     LearnersComponent,
     ButtonComponent,
-    MissionsComponent
+    MissionsComponent,
+    SearchBarComponent,
+    ConnectionComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +46,10 @@ registerLocaleData(localeFr, 'fr');
     BrowserAnimationsModule,
     MatTableModule,
     MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    FormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent]

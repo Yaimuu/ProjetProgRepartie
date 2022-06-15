@@ -13,4 +13,10 @@ export class UrlService {
       queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
     });
   }
+
+  navigateToHome() {
+    this.router.navigate(["home"], {
+      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+    });
+  }
 }
