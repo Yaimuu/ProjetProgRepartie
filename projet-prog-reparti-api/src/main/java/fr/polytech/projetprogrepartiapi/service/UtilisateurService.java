@@ -27,6 +27,12 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
+
+    public boolean isAdmin(int id) {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
+        return utilisateur.isPresent() ? utilisateur.get().isAdmin() : false;
+    }
+
     public void createUtilisateur(Utilisateur utilisateur){
         utilisateurRepository.save(utilisateur);
     }
