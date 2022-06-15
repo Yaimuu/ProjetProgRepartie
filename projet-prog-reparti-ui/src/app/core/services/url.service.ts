@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import {Router} from "@angular/router";
+import { Location } from "@angular/common";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private location: Location) { }
 
   navigateToMissions(userId: number) {
     this.router.navigate(["missions", userId], {
+      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+    });
+  }
+
+  navigateToProfile(userId: number) {
+    this.router.navigate(["profile", userId], {
       queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
     });
   }
@@ -18,5 +27,16 @@ export class UrlService {
     this.router.navigate(["home"], {
       queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
     });
+  }
+
+  navigateToLearners() {
+    this.router.navigate(["learners"], {
+      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+    });
+  }
+
+  getProjectId() {
+    const urlParts = this.location.path().split("/");
+    return urlParts[2];
   }
 }

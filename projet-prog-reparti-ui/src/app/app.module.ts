@@ -22,6 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from "@angular/material/icon";
 import { ConnectionComponent } from './pages/connection/connection.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -37,7 +38,8 @@ registerLocaleData(localeFr, 'fr');
     MissionsComponent,
     SearchBarComponent,
     ConnectionComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
