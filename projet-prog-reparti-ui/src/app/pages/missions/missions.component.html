@@ -1,0 +1,32 @@
+<div class="content">
+  <h1>Liste des actions triées pour <span class="identity">{{identity}}</span> :</h1>
+
+  <section>
+    <div class="red-block">
+      <p>
+        Pour pouvoir enregistrer un score pour une action, il faut que l'action parent soit validée et que l'action ne possède pas déja un score avec
+        une date supérieur ou égale à l'inscription au jeu.
+      </p>
+    </div>
+    <div class="dark-grey-block">
+      <p>
+        Cliquez sur les icônes pour n'afficher que les jeux, missions ou objectifs.
+      </p>
+    </div>
+
+    <p class="missions-tips">
+      Cliquez sur un jeu pour voir les missions.
+    </p>
+
+    <div class="black-block" *ngFor="let action of actions">
+      <i class="fas fa-angle-down"></i>
+      <img src="assets/images/joystick.png">
+      <p>
+        {{action.libelle}} <span class="date_color">inscrit le {{action.date}}</span>
+      </p>
+      <i class="fas fa-caret-down"></i>
+    </div>
+
+  </section>
+
+</div>

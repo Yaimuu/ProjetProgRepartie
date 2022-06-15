@@ -21,7 +21,7 @@ public class UtilisateurController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    @RequestMapping(value={"/api/user/all", "/api/users"})
+    @GetMapping(value={"/api/user/all", "/api/users"})
     public ResponseEntity<Object> getAllUsers() {
         logger.info("GET user/all");
 
@@ -30,7 +30,7 @@ public class UtilisateurController {
         return ResponseEntity.ok(uService.getAllUtilisateurs());
     }
 
-    @RequestMapping("/api/user/{id}")
+    @GetMapping("/api/user/{id}")
     public ResponseEntity<Object> getUser(@PathVariable int id) {
         logger.info("GET user/" + id);
 

@@ -20,4 +20,12 @@ public class LoginRequest {
     public String getNomUtil() {
         return nomUtil;
     }
+
+    @Override
+    public String toString() {
+        return "LoginRequest{" +
+                "nomUtil='" + nomUtil + '\'' +
+                ", motPasse='" + motPasse + '\'' +
+                '}';
+    }
 }
