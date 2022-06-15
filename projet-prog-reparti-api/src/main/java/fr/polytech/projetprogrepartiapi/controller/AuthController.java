@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RequestMapping(value = "/api/auth")
 @RestController
 public class AuthController {
     private final Logger logger = LoggerFactory.getLogger(UtilisateurController.class);
@@ -36,7 +37,7 @@ public class AuthController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/api/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity<Object> login(HttpServletRequest request, HttpServletResponse response) {
         logger.info("GET login");
 
@@ -69,6 +70,8 @@ public class AuthController {
                 message = "Mot de passe correct";
                 session = request.getSession();
                 session.setAttribute("id", utilisateur.getNumUtil());
+                logger.info((String) session.toString());
+                logger.info(session.getAttribute("id").toString());
             } else {
                 message = "Mot de passe incorrect";
                 request.setAttribute("message", message);
@@ -81,6 +84,7 @@ public class AuthController {
 
 //        logger.info(requestString);
         logger.info(message);
+
 
         return ResponseEntity.ok(utilisateur);
     }

@@ -26,4 +26,9 @@ public class UtilisateurService {
     public List<Utilisateur> getAllUtilisateur(){
         return utilisateurRepository.findAll();
     }
+
+    public boolean isAdmin(int id) {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
+        return utilisateur.isPresent() ? utilisateur.get().isAdmin() : false;
+    }
 }
