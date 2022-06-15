@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,14 +36,11 @@ public class AuthController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    @RequestMapping("/api/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/api/login")
     public ResponseEntity<Object> login(HttpServletRequest request, HttpServletResponse response) {
         logger.info("GET login");
 
         String message = "";
-
-        if (!"POST".equalsIgnoreCase(request.getMethod()))
-            return new ResponseEntity("Only POST requests are allowed !", HttpStatus.BAD_REQUEST);
 
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
         String requestString = "";
