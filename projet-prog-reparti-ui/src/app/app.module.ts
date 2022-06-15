@@ -18,8 +18,9 @@ import { ButtonComponent } from './shared/button/button.component';
 import { MissionsComponent } from './pages/missions/missions.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import { ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from "@angular/material/icon";
+import { ConnectionComponent } from './pages/connection/connection.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -33,7 +34,8 @@ registerLocaleData(localeFr, 'fr');
     LearnersComponent,
     ButtonComponent,
     MissionsComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    ConnectionComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ registerLocaleData(localeFr, 'fr');
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent]
