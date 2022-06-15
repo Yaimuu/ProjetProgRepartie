@@ -1,28 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
-import {LocalStorage} from "@ngx-pwa/local-storage";
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   form: any = {
-    surname: null,
-    forename: null,
-    email: null,
-    username: null,
-    password: null
+    surname: "Titouan",
+    forename: "Anthony",
+    email: "yanis@ouledmoussa.com",
+    username: "Iskander",
+    password: "isi3"
   };
 
-  error = "";
+  error: string = "";
 
   constructor(private apiService: ApiService,
-              private urlService: UrlService,
-              private localStorage: LocalStorage) { }
+              public urlService: UrlService) { }
 
   ngOnInit(): void {
   }
@@ -49,15 +47,14 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  register() {
+  update() {
     if (!this.formValidation()) {
       return;
     }
 
-    this.apiService.register(this.form).subscribe(
+    this.apiService.update(this.form).subscribe(
       data => {
-        this.localStorage.setItem("ACCESS_TOKEN", data.accessToken);
-        this.urlService.navigateToHome();
+        this.urlService.navigateToLearners();
       },
       err => {
         this.error = err.error.message;

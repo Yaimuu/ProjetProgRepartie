@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthentificationService implements IAuthentificationService {
-    private final Logger logger = LoggerFactory.getLogger(UtilisateurController.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthentificationService.class);
 
     private UtilisateurRepository unUtilisateurRepostory;
 
@@ -54,4 +54,6 @@ public class AuthentificationService implements IAuthentificationService {
         logger.info(message);
         return unUtilisateur;
     }
+
+
 }

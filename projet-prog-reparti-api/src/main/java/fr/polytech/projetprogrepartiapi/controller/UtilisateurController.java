@@ -30,14 +30,11 @@ public class UtilisateurController {
     public ResponseEntity<Object> getAllUsers(HttpServletRequest request) {
         logger.info("GET user/all");
 
-        HttpSession session;
-        session = request.getSession();
-        logger.info(session.getAttribute("id").toString());
+        HttpSession session = request.getSession();
 
         if(session.getAttribute("id") != null)
         {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
-            logger.info("is admin : " + uService.isAdmin((int) session.getAttribute("id")));
             if(uService.isAdmin((int) session.getAttribute("id")))
                 return ResponseEntity.ok(uService.getAllUtilisateurs());
         }
@@ -46,11 +43,18 @@ public class UtilisateurController {
     }
 
     @GetMapping("/api/user/{id}")
-    public ResponseEntity<Object> getUser(@PathVariable int id) {
+    public ResponseEntity<Object> getUser(@PathVariable int id, HttpServletRequest request) {
         logger.info("GET user/" + id);
 
-        UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+        HttpSession session = request.getSession();
 
-        return ResponseEntity.ok(uService.getUtilisateurById(id));
+        if(session.getAttribute("id") != null)
+        {
+            UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+            if(uService.isAdmin((int) session.getAttribute("id")) || session.getAttribute("id").equals(id))
+                return ResponseEntity.ok(uService.getUtilisateurById(id));
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 }
