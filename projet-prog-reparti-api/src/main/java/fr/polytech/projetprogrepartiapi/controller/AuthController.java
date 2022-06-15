@@ -3,9 +3,11 @@ package fr.polytech.projetprogrepartiapi.controller;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.AuthentificationService;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
+import net.bytebuddy.implementation.bind.annotation.DefaultMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,18 +28,17 @@ public class AuthController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-
     @RequestMapping("/api/login")
     public ResponseEntity<Object> login(HttpServletRequest request, HttpServletResponse response) {
         logger.info("GET login");
 
+        if (!"POST".equalsIgnoreCase(request.getMethod()))
+            return new ResponseEntity("Only POST requests are allowed !", HttpStatus.BAD_REQUEST);
+
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
         String test = "";
         try {
-            if ("POST".equalsIgnoreCase(request.getMethod()))
-            {
-                test = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            }
+            test = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         } catch (Exception e) {
             e.printStackTrace();
         }
