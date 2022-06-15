@@ -1,12 +1,17 @@
 header {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     padding: 1em;
     margin-bottom: 1em;
 
     background-color: var(--black);
     color: var(--white);
+}
+
+header > .menu-first-part {
+  display: flex;
+  align-items: center;
 }
 
 

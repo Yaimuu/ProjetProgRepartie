@@ -41,3 +41,30 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
   padding-right: 0 !important;
 }
+
+.search-bar .mat-form-field-wrapper{
+  margin-bottom: -1.25em !important;
+}
+
+.search-bar .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: var(--white) !important;
+  padding: 0 0.75em 0 0.75em !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+
+.search-bar .mat-form-field-infix {
+  border-top: 0.7375em solid transparent !important;
+}
+
+.search-bar .mat-input-element {
+  color: var(--black) !important;
+}
+
+.mat-table {
+  background: transparent !important;
+}
+
+.mat-header-cell {
+  font-size: 16px !important;
+  color: var(--black) !important;
+}
