@@ -39,7 +39,8 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <app-button [text]="'Missions'"
-                      [color]="'var(--light_green)'"></app-button>
+                      [color]="'var(--light_green)'"
+                      (click)="urlService.navigateToMissions(element.id)"></app-button>
         </td>
       </ng-container>
 

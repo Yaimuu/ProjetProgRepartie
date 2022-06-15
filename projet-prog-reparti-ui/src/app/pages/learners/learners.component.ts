@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {Learner} from "../../core/models/learner.model";
+import {UrlService} from "../../core/services/url.service";
 
 const DATA: Learner[] = [
   {id: 1, surname: 'Hydrogen', forename: "Marie"},
@@ -25,7 +26,7 @@ export class LearnersComponent implements OnInit {
 
   displayedColumns = ["id", "surname", "forename", "missions", "modify", "select"];
 
-  constructor() { }
+  constructor(public urlService: UrlService) { }
 
   ngOnInit(): void {
     // TODO : this.dataSource = new MatTableDataSource<Learner>();

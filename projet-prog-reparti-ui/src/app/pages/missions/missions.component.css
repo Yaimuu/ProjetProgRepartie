@@ -1,0 +1,63 @@
+.identity {
+  color: var(--dark_grey);
+}
+
+.red-block {
+  background-color: var(--red);
+  border-radius: 8px 8px 0 0;
+  padding: 8px 4px;
+}
+
+.red-block p {
+  text-align: center;
+  color: white;
+}
+
+.dark-grey-block {
+  background-color: var(--dark_grey);
+  border-radius: 0 0 8px 8px;
+  padding: 8px 4px;
+}
+
+.dark-grey-block p {
+  text-align: center;
+  color: white;
+}
+
+.missions-tips {
+  margin: 16px 0;
+  color: var(--light_green);
+}
+
+.black-block {
+  background-color: var(--black);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.black-block i {
+  color: white;
+  font-size: 24px;
+}
+
+.black-block img {
+  width: 24px;
+  margin-left: 32px;
+}
+
+.black-block p {
+  color: white;
+  margin-left: 96px;
+}
+
+.date_color {
+  color: var(--orange);
+}
+
+.fa-caret-down {
+  margin-left: auto;
+}
