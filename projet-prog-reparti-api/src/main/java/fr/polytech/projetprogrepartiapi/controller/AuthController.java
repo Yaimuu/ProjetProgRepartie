@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/auth")
 @RestController
 public class AuthController {
-    private final Logger logger = LoggerFactory.getLogger(UtilisateurController.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthentificationService authentificationService;
     private final UtilisateurRepository utilisateurRepository;
@@ -82,10 +83,27 @@ public class AuthController {
             e.printStackTrace();
         }
 
-//        logger.info(requestString);
         logger.info(message);
 
 
         return ResponseEntity.ok(utilisateur);
+    }
+
+    @PostMapping(value = "/logout")
+    public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("id") != null)
+        {
+            logger.info("logout");
+            try {
+                request.logout();
+            }
+            catch (Exception e) { e.printStackTrace(); }
+            session.invalidate();
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

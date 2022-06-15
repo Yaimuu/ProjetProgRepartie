@@ -131,5 +131,5 @@ public class Utilisateur {
         this.forename = forename;
     }
 
-    public boolean isAdmin() {return this.getRole() == "admin";}
+    public boolean isAdmin() {return this.getRole().equals("admin");}
 }
