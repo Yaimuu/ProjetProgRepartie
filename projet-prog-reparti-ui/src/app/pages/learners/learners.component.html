@@ -57,10 +57,11 @@
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <app-button [text]="'SUPPRIMER'"
-                      [color]="'var(--red)'"></app-button>
+                      [color]="'var(--red)'"
+                      (click)="deleteSelectedLearners()"></app-button>
         </th>
         <td mat-cell *matCellDef="let element">
-          <input type="checkbox">
+          <input type="checkbox" (change)="selectLearner(element.id)">
         </td>
       </ng-container>
 
