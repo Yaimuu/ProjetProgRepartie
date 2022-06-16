@@ -41,8 +41,8 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'user/remove/' + id, {}, this.httpOptions);
   }
 
-  update(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'modify', JSON.stringify(data), this.httpOptions);
+  updateUser(id: number, data: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'user/update/' + id, JSON.stringify(data), this.httpOptions);
   }
 
   getAllInscription(): Observable<any> {

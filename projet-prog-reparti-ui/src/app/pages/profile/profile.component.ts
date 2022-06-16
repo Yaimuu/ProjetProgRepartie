@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
     forename: null,
     email: null,
     nomUtil: null,
-    password: null
+    motPasse: null
   };
 
   error: string = "";
@@ -54,8 +54,15 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.apiService.update(this.form).subscribe(
-      data => {
+    const userId = this.urlService.getLearnerId();
+
+    this.apiService.updateUser(userId, this.form).subscribe(
+      () => {
+        console.log(this.form);
+        const oldUsername = sessionStorage.getItem("username");
+        if (this.form.nomUtil != oldUsername) {
+          sessionStorage.setItem("username", this.form.nomUtil);
+        }
         this.urlService.navigateToLearners();
       },
       err => {
@@ -69,6 +76,7 @@ export class ProfileComponent implements OnInit {
     this.apiService.getUser(userId).subscribe(
       (data) => {
         this.form = data;
+        this.form.motPasse = null;
       },
       err => {
         console.log(err.error.message);
