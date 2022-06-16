@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   formValidation() {
+    const regexp = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!this.form.surname) {
       this.error = "Veuillez renseigner votre nom."
       return false;
@@ -34,6 +35,9 @@ export class RegistrationComponent implements OnInit {
       return false;
     } else if (!this.form.email){
       this.error = "Veuillez renseigner votre email."
+      return false;
+    } else if (!this.form.email.match(regexp)) {
+      this.error = "L'email saisie n'est pas valide.";
       return false;
     } else if (!this.form.login) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
