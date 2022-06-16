@@ -37,6 +37,10 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'auth/register', JSON.stringify(data), this.httpOptions);
   }
 
+  removeUser(id: number): Observable<any> {
+    return this.http.post(this.baseUrl + 'user/remove/' + id, {}, this.httpOptions);
+  }
+
   update(data: any): Observable<any> {
     return this.http.post(this.baseUrl + 'modify', JSON.stringify(data), this.httpOptions);
   }
