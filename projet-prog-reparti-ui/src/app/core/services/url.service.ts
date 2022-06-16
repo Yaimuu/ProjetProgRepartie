@@ -35,8 +35,8 @@ export class UrlService {
     });
   }
 
-  getProjectId() {
+  getLearnerId() {
     const urlParts = this.location.path().split("/");
-    return urlParts[2];
+    return Number(urlParts[2]);
   }
 }

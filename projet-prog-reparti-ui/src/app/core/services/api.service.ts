@@ -30,7 +30,7 @@ export class ApiService {
   }
 
   getUser(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + '/user/' + id, this.httpOptions);
+    return this.http.get(this.baseUrl + 'user/' + id, this.httpOptions);
   }
 
   register(data: any): Observable<any> {
