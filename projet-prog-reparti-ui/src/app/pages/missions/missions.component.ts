@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../../core/services/api.service";
+import {UrlService} from "../../core/services/url.service";
 
 const actions = [
   {id: 1, libelle: "Petanque", date: "15-06-2022"},
@@ -14,15 +16,27 @@ const actions = [
 })
 export class MissionsComponent implements OnInit {
 
-  identity: string = "Lorem ipsum";
+  identity: string = "";
 
   actions = actions;
 
-  constructor() { }
+  constructor(private apiService: ApiService,
+              private urlService: UrlService) { }
 
   ngOnInit(): void {
+    this.setIdentity();
   }
 
-  // TODO: getName from Id
+  setIdentity() {
+    const userId = this.urlService.getLearnerId();
+    this.apiService.getUser(userId).subscribe(
+      (data) => {
+        this.identity = data.surname + " " + data.forename;
+      },
+        err => {
+          console.log(err.error.message);
+        }
+    );
+  }
 
 }

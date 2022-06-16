@@ -18,9 +18,10 @@ export class UrlService {
   }
 
   navigateToProfile(userId: number) {
-    this.router.navigate(["profile", userId], {
-      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
-    });
+    this.router.navigateByUrl("/", { skipLocationChange: true })
+      .then(() => this.router.navigate(["profile", userId], {
+        queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+      }));
   }
 
   navigateToHome() {
@@ -35,8 +36,8 @@ export class UrlService {
     });
   }
 
-  getProjectId() {
+  getLearnerId() {
     const urlParts = this.location.path().split("/");
-    return urlParts[2];
+    return Number(urlParts[2]);
   }
 }

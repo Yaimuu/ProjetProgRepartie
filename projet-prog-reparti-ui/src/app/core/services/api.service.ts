@@ -30,11 +30,15 @@ export class ApiService {
   }
 
   getUser(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + '/user/' + id, this.httpOptions);
+    return this.http.get(this.baseUrl + 'user/' + id, this.httpOptions);
   }
 
   register(data: any): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/register', JSON.stringify(data), this.httpOptions);
+  }
+
+  removeUser(id: number): Observable<any> {
+    return this.http.post(this.baseUrl + 'user/remove/' + id, {}, this.httpOptions);
   }
 
   update(data: any): Observable<any> {

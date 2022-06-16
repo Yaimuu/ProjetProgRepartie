@@ -1,11 +1,11 @@
 export class Learner {
-  id: number | undefined;
+  numUtil: number | undefined;
   surname: string | undefined;
   forename: string | undefined;
 
   constructor(data?: any) {
     if (data != null) {
-      this.id = data.id;
+      this.numUtil = data.numUtil;
       this.surname = data.surname;
       this.forename = data.forename;
     }

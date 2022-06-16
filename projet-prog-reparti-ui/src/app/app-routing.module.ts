@@ -23,7 +23,6 @@ const routes: Routes = [
       { path: "registration", component: RegistrationComponent },
       { path: "learners", component: LearnersComponent },
       { path: "profile/:userId", component: ProfileComponent },
-      // { path: "games", component: GamesComponent },
       // { path: "actions", component: DemandsPageComponent },
     ],
 

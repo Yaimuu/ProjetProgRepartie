@@ -46,21 +46,25 @@ export class LearnersComponent implements OnInit {
 
     if(this.selectedLearners.length > 0) {
       for (let line of this.dataSource.data) {
-        if (line.id != null) {
-          const selectedLearnerIndex = this.selectedLearners.indexOf(line.id);
+        if (line.numUtil != null) {
+          const selectedLearnerIndex = this.selectedLearners.indexOf(line.numUtil);
           // if learnerId is not selected
           if (selectedLearnerIndex == -1) {
             newData.push(line);
           } else {
-            // TODO : update data base with API
+            this.apiService.removeUser(line.numUtil).subscribe(
+              () => {},
+              err => {
+                console.log(err.error.message);
+              }
+            );
           }
         }
       }
+      this.dataSource.data = newData;
+      this.numberOfLearners = newData.length;
+      this.selectedLearners = [];
     }
-
-    this.dataSource.data = newData;
-    this.numberOfLearners = newData.length;
-    this.selectedLearners = [];
   }
 
   getAllLearners() {
