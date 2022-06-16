@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,9 +18,11 @@ public class InscriptionAction {
     @Column(name = "score", nullable = true)
     private Integer score;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "fk_inscription", referencedColumnName = "id", nullable = false)
     private Inscription inscriptionByFkInscription;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
     private Action actionByFkAction;
 

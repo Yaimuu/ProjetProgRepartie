@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -12,8 +14,12 @@ public class Mission {
     @Basic
     @Column(name = "wording", nullable = true, length = 25)
     private String wording;
+
+
     @ManyToMany(mappedBy = "MissionsById")
     private Collection<Action> actionsById;
+
+    @JsonBackReference
     @OneToMany(mappedBy = "missionByFkMission")
     private Collection<Inscription> inscriptionsById;
 

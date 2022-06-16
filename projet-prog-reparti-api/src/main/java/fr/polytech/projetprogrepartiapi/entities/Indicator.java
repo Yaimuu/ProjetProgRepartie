@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class Indicator {
     @Column(name = "valueifuncheck", nullable = true)
     private Integer valueIfUnCheck;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
     private Action actionByFkAction;
 
