@@ -117,8 +117,6 @@ public class AuthController {
 
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
         String requestString = "";
-        LoginRequest loginRequest = new LoginRequest();
-        Utilisateur utilisateur = null;
         Map<String, Object> mappedRequest = new HashMap<>();
 
         try {
