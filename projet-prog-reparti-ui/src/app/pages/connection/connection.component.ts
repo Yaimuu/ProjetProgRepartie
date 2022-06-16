@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
-import {LocalStorage} from "@ngx-pwa/local-storage";
 import {UrlService} from "../../core/services/url.service";
 
 @Component({
@@ -11,21 +10,20 @@ import {UrlService} from "../../core/services/url.service";
 export class ConnectionComponent implements OnInit {
 
   form: any = {
-    username: null,
+    login: null,
     password: null
   };
 
   error = "";
 
   constructor(private apiService: ApiService,
-              private localStorage: LocalStorage,
               private urlService: UrlService) { }
 
   ngOnInit(): void {
   }
 
   formValidation() {
-    if (!this.form.username) {
+    if (!this.form.login) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
       return false;
     } else if (!this.form.password) {
@@ -37,14 +35,15 @@ export class ConnectionComponent implements OnInit {
     }
   }
 
-  signIn() {
+  login() {
     if (!this.formValidation()) {
       return;
     }
 
     this.apiService.login(this.form).subscribe(
       data => {
-        this.localStorage.setItem("ACCESS_TOKEN", data.accessToken);
+        sessionStorage.setItem("username", data.nomUtil);
+        sessionStorage.setItem("role", data.role);
         this.urlService.navigateToHome();
       },
       err => {

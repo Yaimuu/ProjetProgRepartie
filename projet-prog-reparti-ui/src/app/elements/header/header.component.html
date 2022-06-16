@@ -10,11 +10,18 @@
     <nav>
         <ul>
             <li><a routerLink="/home">Accueil</a></li>
-            <li><a routerLink="/connection">Connexion</a></li>
-            <li><a routerLink="/registration">Inscription</a></li>
-            <li><a routerLink="/learners">Apprenants</a></li>
-            <li><a routerLink="">Jeux</a></li>
-            <li><a routerLink="">Actions</a></li>
+            <ng-container *ngIf="!isUserLoggedIn()">
+              <li><a routerLink="/connection">Connexion</a></li>
+              <li><a routerLink="/registration">Inscription</a></li>
+            </ng-container>
+            <ng-container *ngIf="isUserAdmin()">
+              <li><a routerLink="/learners">Apprenants</a></li>
+            </ng-container>
+            <ng-container *ngIf="isUserLoggedIn()">
+              <li><a routerLink="">Jeux</a></li>
+              <li><a routerLink="">Actions</a></li>
+              <li><a routerLink="" (click)="logout()">Déconnexion</a></li>
+            </ng-container>
         </ul>
     </nav>
 </header>

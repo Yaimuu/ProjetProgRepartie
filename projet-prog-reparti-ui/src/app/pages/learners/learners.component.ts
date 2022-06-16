@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {Learner} from "../../core/models/learner.model";
 import {UrlService} from "../../core/services/url.service";
-
-const DATA: Learner[] = [
-  {id: 1, surname: 'Hydrogen', forename: "Marie"},
-  {id: 2, surname: 'Helium', forename: "Phillipe"},
-  {id: 3, surname: 'Lithium', forename: "Jean-Paul"}
-];
+import {ApiService} from "../../core/services/api.service";
 
 @Component({
   selector: 'app-learners',
@@ -26,11 +21,11 @@ export class LearnersComponent implements OnInit {
 
   selectedLearners:number[] = [];
 
-  constructor(public urlService: UrlService) { }
+  constructor(public urlService: UrlService,
+              private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.dataSource.data = DATA;
-    this.numberOfLearners = this.dataSource.data.length;
+    this.getAllLearners();
   }
 
   hideBlockWithTips(): void {
@@ -66,6 +61,18 @@ export class LearnersComponent implements OnInit {
     this.dataSource.data = newData;
     this.numberOfLearners = newData.length;
     this.selectedLearners = [];
+  }
+
+  getAllLearners() {
+    this.apiService.getAllUsers().subscribe(
+      data => {
+        this.dataSource.data = data;
+        this.numberOfLearners = data.length;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
-import {LocalStorage} from "@ngx-pwa/local-storage";
 
 @Component({
   selector: 'app-registration',
@@ -14,15 +13,14 @@ export class RegistrationComponent implements OnInit {
     surname: null,
     forename: null,
     email: null,
-    username: null,
+    login: null,
     password: null
   };
 
   error = "";
 
   constructor(private apiService: ApiService,
-              private urlService: UrlService,
-              private localStorage: LocalStorage) { }
+              private urlService: UrlService) { }
 
   ngOnInit(): void {
   }
@@ -37,7 +35,7 @@ export class RegistrationComponent implements OnInit {
     } else if (!this.form.email){
       this.error = "Veuillez renseigner votre email."
       return false;
-    } else if (!this.form.username) {
+    } else if (!this.form.login) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
       return false;
     } else if (!this.form.password) {
@@ -56,7 +54,6 @@ export class RegistrationComponent implements OnInit {
 
     this.apiService.register(this.form).subscribe(
       data => {
-        this.localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         this.urlService.navigateToHome();
       },
       err => {
