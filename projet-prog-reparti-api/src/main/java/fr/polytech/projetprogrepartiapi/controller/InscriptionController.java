@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
+import fr.polytech.projetprogrepartiapi.entities.Inscription;
+import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.InscriptionService;
@@ -15,35 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 public class InscriptionController {
     private final Logger logger = LoggerFactory.getLogger(InscriptionController.class);
     private final InscriptionRepository inscriptionRepository;
-    private final UtilisateurRepository utilisateurRepository;
 
     public InscriptionController(InscriptionRepository inscriptionRepository, UtilisateurRepository utilisateurRepository) {
         this.inscriptionRepository = inscriptionRepository;
-        this.utilisateurRepository = utilisateurRepository;
     }
-    @GetMapping("/api/inscriptions/{userid}")
-    public ResponseEntity<Object> getInscriptionsForUser(@PathVariable int userid, HttpServletRequest request) {
-        logger.info("GET inscriptions/" + userid);
 
-        HttpSession session = request.getSession();
+    @GetMapping("/api/inscriptions")
+    List<Inscription> getAllInscription(){
+        return this.inscriptionRepository.findAll();
+    }
 
-        if(session.getAttribute("id") != null)
-        {
-            UtilisateurService uService = new UtilisateurService(utilisateurRepository);
-            if(uService.isAdmin((int) session.getAttribute("id")) || session.getAttribute("id").equals(userid)){
-                InscriptionService inscriptionService = new InscriptionService(inscriptionRepository);
-                // return ResponseEntity.ok();
-            }
-
+    @GetMapping("api/inscription/{id}")
+    Inscription getInscriptionById(@PathVariable int id){
+        Optional<Inscription> inscription = this.inscriptionRepository.findById(id);
+        Inscription i = null;
+        if(inscription.isPresent()){
+            i = inscription.get();
         }
+        return i;
 
-        return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
+
 
 }

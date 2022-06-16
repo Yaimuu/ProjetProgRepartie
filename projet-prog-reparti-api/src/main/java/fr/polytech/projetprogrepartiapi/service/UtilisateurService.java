@@ -1,6 +1,7 @@
 package fr.polytech.projetprogrepartiapi.service;
 
 import fr.polytech.projetprogrepartiapi.controller.UtilisateurController;
+import fr.polytech.projetprogrepartiapi.entities.Inscription;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import org.slf4j.Logger;
@@ -52,6 +53,9 @@ public class UtilisateurService {
         utilisateurRepository.delete(utilisateur);
     }
 
+    public List<Inscription> getAllInscriptionsFromUser(Utilisateur utilisateur){
+        return utilisateur.getInscriptionsById();
+    }
     public Utilisateur getAutenticatedUtilisateur(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
