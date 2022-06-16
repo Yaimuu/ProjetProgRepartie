@@ -6,6 +6,7 @@ import fr.polytech.projetprogrepartiapi.repositories.InscriptionActionRepository
 import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,8 @@ public class InscriptionActionService {
         return inscriptionActionRepository.findAll();
     }
 
-    public void createInscription(InscriptionAction inscriptionAction){
-        inscriptionActionRepository.save(inscriptionAction);
+    public InscriptionAction createInscription(InscriptionAction inscriptionAction){
+        return inscriptionActionRepository.save(inscriptionAction);
     }
 
     public long getNumberInscriptions(){
@@ -35,5 +36,9 @@ public class InscriptionActionService {
 
     public void deleteInscription(InscriptionAction inscriptionAction){
         inscriptionActionRepository.delete(inscriptionAction);
+    }
+
+    public Collection<InscriptionAction> getInscriptionsActionsFromInscription(Inscription inscription){
+        return inscription.getInscriptionActionsById();
     }
 }

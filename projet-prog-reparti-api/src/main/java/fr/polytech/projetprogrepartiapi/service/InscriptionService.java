@@ -1,11 +1,13 @@
 package fr.polytech.projetprogrepartiapi.service;
 
 import fr.polytech.projetprogrepartiapi.entities.Inscription;
+import fr.polytech.projetprogrepartiapi.entities.InscriptionAction;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,8 @@ public class InscriptionService {
         return inscriptionRepository.findAll();
     }
 
-    public void createInscription(Inscription inscription){
-        inscriptionRepository.save(inscription);
+    public Inscription createInscription(Inscription inscription){
+        return inscriptionRepository.save(inscription);
     }
 
     public long getNumberInscriptions(){
@@ -37,5 +39,7 @@ public class InscriptionService {
     public void deleteInscription(Inscription inscription){
         inscriptionRepository.delete(inscription);
     }
+
+
 
 }
