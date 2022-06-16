@@ -7,11 +7,12 @@
            placeholder="Nom de l'apprenant"
            matInput
            [formControl]="myControl"
-           [matAutocomplete]="auto">
+           [matAutocomplete]="auto"
+           [(ngModel)]="inputValue">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async"
                   [value]="option.name"
-                  (click)="urlService.navigateToProfile(option.id)">
+                  (click)="redirectToProfile(option.id)">
         {{option.name}}
       </mat-option>
     </mat-autocomplete>

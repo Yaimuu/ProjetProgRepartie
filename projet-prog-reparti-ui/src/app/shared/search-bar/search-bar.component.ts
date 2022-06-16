@@ -20,6 +20,8 @@ export class SearchBarComponent implements OnInit {
 
   options: option[] = [];
 
+  inputValue = "";
+
   filteredOptions: Observable<any[]> = new Observable<any[]>();
 
   constructor(private apiService: ApiService,
@@ -47,13 +49,14 @@ export class SearchBarComponent implements OnInit {
     );
   }
 
-  getOptionText(option: any) {
-    return option.name;
-  }
-
   private _filter(value: string): option[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  redirectToProfile(learnerId: number) {
+      this.inputValue = "";
+      this.urlService.navigateToProfile(learnerId);
   }
 
 }
