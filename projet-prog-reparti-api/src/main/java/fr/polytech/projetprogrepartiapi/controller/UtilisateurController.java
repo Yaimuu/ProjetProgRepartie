@@ -1,19 +1,18 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
 
+import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 public class UtilisateurController {
@@ -53,6 +52,30 @@ public class UtilisateurController {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
             if(uService.isAdmin((int) session.getAttribute("id")) || session.getAttribute("id").equals(id))
                 return ResponseEntity.ok(uService.getUtilisateurById(id));
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping("/api/user/remove/{id}")
+    public ResponseEntity<Object> removeUser(@PathVariable int id, HttpServletRequest request) {
+        logger.info("POST user/remove/" + id);
+
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("id") != null)
+        {
+            UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+            if(uService.isAdmin((int) session.getAttribute("id")))
+            {
+                Optional<Utilisateur> utilisateurToRemove = uService.getUtilisateurById(id);
+
+                if(!utilisateurToRemove.isPresent())
+                    return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+                uService.deleteUtilisateur(utilisateurToRemove.get());
+                return ResponseEntity.ok(uService.getUtilisateurById(id));
+            }
         }
 
         return new ResponseEntity(HttpStatus.FORBIDDEN);
