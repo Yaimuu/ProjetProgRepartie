@@ -35,13 +35,15 @@ export class ConnectionComponent implements OnInit {
     }
   }
 
-  signIn() {
+  login() {
     if (!this.formValidation()) {
       return;
     }
 
     this.apiService.login(this.form).subscribe(
       data => {
+        sessionStorage.setItem("username", data.nomUtil);
+        sessionStorage.setItem("role", data.role);
         this.urlService.navigateToHome();
       },
       err => {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../../core/services/api.service";
+import {UrlService} from "../../core/services/url.service";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiService,
+              private urlService: UrlService) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.apiService.logout().subscribe(
+      data => {
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("role");
+        this.urlService.navigateToHome();
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem("username");
+    return !(user === null)
+  }
+
+  isUserAdmin() {
+    let role = sessionStorage.getItem("role");
+    return !(role === null)
   }
 
 }
