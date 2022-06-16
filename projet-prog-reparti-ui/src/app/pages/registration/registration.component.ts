@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
 
@@ -53,7 +53,9 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.apiService.register(this.form).subscribe(
-      data => {
+      () => {
+        sessionStorage.setItem("username", this.form.login);
+        sessionStorage.setItem("role", "learner");
         this.urlService.navigateToHome();
       },
       err => {

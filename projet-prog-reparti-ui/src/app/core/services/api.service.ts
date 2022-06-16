@@ -10,7 +10,8 @@ export class ApiService {
   baseUrl: string = "http://localhost:8080/api/";
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    withCredentials: true
   };
 
   constructor(private http: HttpClient) {
@@ -33,7 +34,7 @@ export class ApiService {
   }
 
   register(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'signup', JSON.stringify(data), this.httpOptions);
+    return this.http.post(this.baseUrl + 'auth/register', JSON.stringify(data), this.httpOptions);
   }
 
   update(data: any): Observable<any> {
