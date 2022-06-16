@@ -29,13 +29,13 @@ export class HeaderComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem("username");
-    return !(user === null)
+    const user = sessionStorage.getItem("username");
+    return !(user === null);
   }
 
   isUserAdmin() {
-    let role = sessionStorage.getItem("role");
-    return !(role === null)
+    const role = sessionStorage.getItem("role");
+    return role != null && role == "admin";
   }
 
 }

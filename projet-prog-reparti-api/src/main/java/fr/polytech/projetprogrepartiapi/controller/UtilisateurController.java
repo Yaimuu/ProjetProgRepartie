@@ -115,8 +115,8 @@ public class UtilisateurController {
 
 
                 Utilisateur utilisateurOriginal = orginalUser.get();
-                if(mappedRequest.get("login")!=null){
-                    utilisateurOriginal.setNomUtil(mappedRequest.get("login").toString());
+                if(mappedRequest.get("nomUtil")!=null){
+                    utilisateurOriginal.setNomUtil(mappedRequest.get("nomUtil").toString());
                 }
                 if(mappedRequest.get("forename")!=null){
                     utilisateurOriginal.setForename(mappedRequest.get("forename").toString());
@@ -127,9 +127,9 @@ public class UtilisateurController {
                 if(mappedRequest.get("email")!=null){
                     utilisateurOriginal.setEmail(mappedRequest.get("email").toString());
                 }
-                if(mappedRequest.get("password")!=null){
+                if(mappedRequest.get("motPasse")!=null){
                     byte[] salt = PasswordHelper.GenerateSalt();
-                    byte[] password = PasswordHelper.generatePasswordHash(mappedRequest.get("password").toString().toCharArray(), salt);
+                    byte[] password = PasswordHelper.generatePasswordHash(mappedRequest.get("motPasse").toString().toCharArray(), salt);
                     utilisateurOriginal.setMotPasse(PasswordHelper.bytesToString(password));
                     utilisateurOriginal.setSalt(PasswordHelper.bytesToString(salt));
                 }

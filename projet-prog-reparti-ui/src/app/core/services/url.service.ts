@@ -36,6 +36,12 @@ export class UrlService {
     });
   }
 
+  navigateToConnection() {
+    this.router.navigate(["connection"], {
+      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+    });
+  }
+
   getLearnerId() {
     const urlParts = this.location.path().split("/");
     return Number(urlParts[2]);
