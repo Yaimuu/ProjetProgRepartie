@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import fr.polytech.projetprogrepartiapi.entities.LoginRequest;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
+import fr.polytech.projetprogrepartiapi.helpers.PasswordHelper;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.AuthentificationService;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,6 +57,9 @@ public class AuthController {
             requestString = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
             ObjectMapper mapper = new ObjectMapper();
             mappedRequest = mapper.readValue(requestString, Map.class);
+
+            if(mappedRequest.get("login") == null || mappedRequest.get("password") == null)
+                return new ResponseEntity("Incorrect format !", HttpStatus.BAD_REQUEST);
 
             loginRequest.setNomUtil((String) mappedRequest.get("login"));
             loginRequest.setMotPasse((String) mappedRequest.get("password"));
@@ -103,6 +108,41 @@ public class AuthController {
             catch (Exception e) { e.printStackTrace(); }
             session.invalidate();
         }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
+    public ResponseEntity register(HttpServletRequest request, HttpServletResponse response) {
+
+        UtilisateurService uService = new UtilisateurService(utilisateurRepository);
+        String requestString = "";
+        LoginRequest loginRequest = new LoginRequest();
+        Utilisateur utilisateur = null;
+        Map<String, Object> mappedRequest = new HashMap<>();
+
+        try {
+            requestString = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            ObjectMapper mapper = new ObjectMapper();
+            mappedRequest = mapper.readValue(requestString, Map.class);
+        } catch (Exception e) { e.printStackTrace(); }
+
+        if(mappedRequest.get("password") == null || mappedRequest.get("login") == null ||
+                mappedRequest.get("surname") == null || mappedRequest.get("email") == null || mappedRequest.get("forename") == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        byte[] salt = PasswordHelper.GenerateSalt();
+        byte[] password = PasswordHelper.generatePasswordHash(mappedRequest.get("password").toString().toCharArray(), salt);
+        long id = uService.getNumberUtilisateurs() + 1;
+
+        Utilisateur userToRegister = new Utilisateur((int) id,
+                (String) mappedRequest.get("login"),
+                new String(password, StandardCharsets.UTF_8),
+                new String(salt, StandardCharsets.UTF_8),
+                "learner");
+
+        userToRegister.setForename(mappedRequest.get("forename").toString());
+        userToRegister.setSurname(mappedRequest.get("surname").toString());
 
         return new ResponseEntity(HttpStatus.OK);
     }
