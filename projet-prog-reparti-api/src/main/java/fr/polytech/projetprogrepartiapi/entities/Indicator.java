@@ -15,7 +15,7 @@ public class Indicator {
     @Column(name = "valueifcheck", nullable = true)
     private Integer valueIfCheck;
     @Basic
-    @Column(name = "valueifunCheck", nullable = true)
+    @Column(name = "valueifuncheck", nullable = true)
     private Integer valueIfUnCheck;
     @ManyToOne
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
