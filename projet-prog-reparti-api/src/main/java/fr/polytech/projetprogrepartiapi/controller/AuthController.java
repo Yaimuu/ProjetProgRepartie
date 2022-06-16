@@ -135,13 +135,14 @@ public class AuthController {
 
         Utilisateur userToRegister = new Utilisateur((int) id,
                 (String) mappedRequest.get("login"),
-                new String(password, StandardCharsets.UTF_8),
-                new String(salt, StandardCharsets.UTF_8),
+                PasswordHelper.bytesToString(password),
+                PasswordHelper.bytesToString(salt),
                 "learner");
 
 
         userToRegister.setForename(mappedRequest.get("forename").toString());
         userToRegister.setSurname(mappedRequest.get("surname").toString());
+        userToRegister.setEmail(mappedRequest.get("email").toString());
         uService.createUtilisateur(userToRegister);
         return new ResponseEntity(HttpStatus.OK);
     }
