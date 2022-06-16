@@ -68,7 +68,6 @@ export class ProfileComponent implements OnInit {
     const userId = this.urlService.getLearnerId();
     this.apiService.getUser(userId).subscribe(
       (data) => {
-        console.log(data);
         this.form = data;
       },
       err => {

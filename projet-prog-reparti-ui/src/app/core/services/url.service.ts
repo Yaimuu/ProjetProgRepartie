@@ -18,9 +18,10 @@ export class UrlService {
   }
 
   navigateToProfile(userId: number) {
-    this.router.navigate(["profile", userId], {
-      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
-    });
+    this.router.navigateByUrl("/", { skipLocationChange: true })
+      .then(() => this.router.navigate(["profile", userId], {
+        queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+      }));
   }
 
   navigateToHome() {
