@@ -17,7 +17,19 @@ export class ApiService {
   }
 
   login(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'signin', JSON.stringify(data), this.httpOptions);
+    return this.http.post(this.baseUrl + 'auth/login', JSON.stringify(data), this.httpOptions);
+  }
+
+  logout(): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/logout', {}, this.httpOptions);
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.post(this.baseUrl + 'users', {}, this.httpOptions);
+  }
+
+  getUser(id: number): Observable<any> {
+    return this.http.post(this.baseUrl + '/user/' + id, {}, this.httpOptions);
   }
 
   register(data: any): Observable<any> {
