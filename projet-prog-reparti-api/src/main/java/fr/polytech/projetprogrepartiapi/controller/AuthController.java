@@ -139,9 +139,10 @@ public class AuthController {
                 new String(salt, StandardCharsets.UTF_8),
                 "learner");
 
+
         userToRegister.setForename(mappedRequest.get("forename").toString());
         userToRegister.setSurname(mappedRequest.get("surname").toString());
-
+        uService.createUtilisateur(userToRegister);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
