@@ -18,14 +18,23 @@
       Cliquez sur un jeu pour voir les missions.
     </p>
 
-    <div class="black-block" *ngFor="let action of actions">
-      <i class="fas fa-angle-down"></i>
-      <img src="assets/images/joystick.png">
-      <p>
-        {{action.libelle}} <span class="date_color">inscrit le {{action.date}}</span>
-      </p>
-      <i class="fas fa-caret-down"></i>
-    </div>
+    <ng-container *ngFor="let inscription of userInscriptions">
+      <div class="black-block" (click)="showCollapsible(inscription.id)">
+        <i [class]="getAngleIcon(inscription.id)"></i>
+        <img src="assets/images/joystick.png">
+        <p>
+          {{inscription.mission}} <span class="date_color">inscrit le {{inscription.date}}</span>
+        </p>
+        <i [class]="getCaretIcon(inscription.id)"></i>
+      </div>
+      <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
+        <ng-container *ngFor="let action of inscription.actions">
+              <p class="action-wording">
+                {{action.wording}}
+              </p>
+        </ng-container>
+      </div>
+    </ng-container>
 
   </section>
 

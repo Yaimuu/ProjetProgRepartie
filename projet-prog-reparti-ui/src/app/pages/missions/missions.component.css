@@ -33,7 +33,7 @@
   background-color: var(--black);
   padding: 16px;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -58,6 +58,16 @@
   color: var(--orange);
 }
 
-.fa-caret-down {
+.fa-caret-down, .fa-caret-up {
   margin-left: auto;
+}
+
+.collapsible-block {
+  background-color: var(--white);
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+}
+
+.action-wording:not(:last-child) {
+  margin-bottom: 16px;
 }
