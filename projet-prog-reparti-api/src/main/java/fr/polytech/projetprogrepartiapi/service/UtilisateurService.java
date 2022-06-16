@@ -35,7 +35,9 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
-
+    public List<Utilisateur> getAllUtilisateursByRole(String role){
+        return utilisateurRepository.findAllByRole(role);
+    }
     public boolean isAdmin(int id) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
         return utilisateur.isPresent() && utilisateur.get().isAdmin();
@@ -67,4 +69,6 @@ public class UtilisateurService {
 
         return null;
     }
+
+
 }

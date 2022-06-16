@@ -30,9 +30,11 @@ public class UtilisateurController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
+
     @GetMapping(value={"/api/user/all", "/api/users"})
-    public ResponseEntity<Object> getAllUsers(HttpServletRequest request) {
-        logger.info("GET user/all");
+    public ResponseEntity<Object> getAllUsersWithRole(HttpServletRequest request) {
+        String rolename = "learner";
+        logger.info("GET users/role/"+rolename);
 
         HttpSession session = request.getSession();
 
@@ -40,13 +42,10 @@ public class UtilisateurController {
         {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
             if(uService.isAdmin((int) session.getAttribute("id")))
-                return ResponseEntity.ok(uService.getAllUtilisateurs());
+                return ResponseEntity.ok(uService.getAllUtilisateursByRole(rolename));
         }
-        logger.info("error");
-
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
-
     @GetMapping("/api/user/{id}")
     public ResponseEntity<Object> getUser(@PathVariable int id, HttpServletRequest request) {
         logger.info("GET user/" + id);
