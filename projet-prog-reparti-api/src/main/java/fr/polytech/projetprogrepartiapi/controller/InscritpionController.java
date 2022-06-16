@@ -15,4 +15,6 @@ public class InscritpionController {
     public InscritpionController(InscriptionRepository inscriptionRepository) {
         this.inscriptionRepository = inscriptionRepository;
     }
+
+
 }

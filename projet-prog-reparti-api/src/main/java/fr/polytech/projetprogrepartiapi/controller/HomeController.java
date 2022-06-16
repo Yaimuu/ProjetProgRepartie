@@ -5,6 +5,7 @@ import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,12 +30,12 @@ public class HomeController {
      * @return ResponseEntity Home
      */
     @GetMapping
-    public ResponseEntity<Object> home(HttpServletRequest request) {
+    public ResponseEntity home(HttpServletRequest request) {
         logger.info("GET home");
 
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
 
-        return ResponseEntity.ok(uService.getAutenticatedUtilisateur(request));
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

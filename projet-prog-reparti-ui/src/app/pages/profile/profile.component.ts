@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
     surname: "Titouan",
     forename: "Anthony",
     email: "yanis@ouledmoussa.com",
-    username: "Iskander",
+    login: "Iskander",
     password: "isi3"
   };
 
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     } else if (!this.form.email){
       this.error = "Veuillez renseigner votre email."
       return false;
-    } else if (!this.form.username) {
+    } else if (!this.form.login) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
       return false;
     } else if (!this.form.password) {
