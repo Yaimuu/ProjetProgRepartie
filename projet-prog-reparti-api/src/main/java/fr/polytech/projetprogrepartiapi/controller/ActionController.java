@@ -65,20 +65,27 @@ public class ActionController {
 
         Action action = actionService.getActionById(idAction).get();
         InscriptionAction inscriptionAction = inscriptionActionService.getInscriptionActionFromValue(inscriptionService.getInscriptionById(idInscription).get(), action);
-
+        if(inscriptionAction.getScore()!=null){
+            return new ResponseEntity("Action déjà simulée", HttpStatus.BAD_REQUEST);
+        }
         if(u != null) {
 
             Random rand = new Random();
 
             List<Indicator> indicators = indicatorRepository.findAllByActionId(idAction);
+            Action actionPrec = action.getActionByFkAction();
+            if(actionPrec!=null){
+                InscriptionAction inscriptionActionPrec = inscriptionActionService.getInscriptionActionFromValue(inscriptionService.getInscriptionById(idInscription).get(), actionPrec);
+                if(inscriptionActionPrec!=null && inscriptionActionPrec.getScore()==null){
+                    return new ResponseEntity("Action précédente non réalisée", HttpStatus.BAD_REQUEST);
+                }
+            }
 
             int score = 0;
 
             for (Indicator i : indicators) {
                 boolean isIndicatorChecked = rand.nextBoolean();
-
                 score += isIndicatorChecked ? i.getValueIfCheck() : i.getValueIfUnCheck();
-
                 i.setChecked(isIndicatorChecked);
             }
 
