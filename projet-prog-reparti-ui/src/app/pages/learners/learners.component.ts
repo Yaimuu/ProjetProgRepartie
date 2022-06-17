@@ -58,7 +58,7 @@ export class LearnersComponent implements OnInit {
             this.apiService.removeUser(line.numUtil).subscribe(
               () => {},
               err => {
-                console.log(err.error.message);
+                console.log(err.error);
               }
             );
           }
@@ -77,7 +77,7 @@ export class LearnersComponent implements OnInit {
         this.numberOfLearners = data.length;
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
 import {UserInscription} from "../../core/models/UserInscription.model";
+import {MatDialog} from "@angular/material/dialog";
+import {IndicatorsComponent} from "../../shared/indicators/indicators.component";
 
 @Component({
   selector: 'app-missions',
@@ -14,10 +16,13 @@ export class MissionsComponent implements OnInit {
 
   userInscriptions: UserInscription[] = [];
 
+  inscriptionsActions: any[] = [];
+
   hiddenCollapsible: Map<number, boolean> = new Map<number, boolean>();
 
   constructor(private apiService: ApiService,
-              private urlService: UrlService) { }
+              private urlService: UrlService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.setIdentity();
@@ -30,13 +35,18 @@ export class MissionsComponent implements OnInit {
       (data: UserInscription[]) => {
         for (const inscription of data){
           this.userInscriptions.push(new UserInscription(inscription));
-            if (inscription.id != null) {
-              this.hiddenCollapsible.set(inscription.id, true);
+          if (inscription.id != null) {
+            this.hiddenCollapsible.set(inscription.id, true);
+          }
+          this.apiService.getInscriptionsActions(Number(inscription.id)).subscribe(
+            (data) => {
+                this.inscriptionsActions.push(data);
             }
+          );
         }
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }
@@ -48,7 +58,7 @@ export class MissionsComponent implements OnInit {
           this.identity = data.surname + " " + data.forename;
       },
         err => {
-          console.log(err.error.message);
+          console.log(err.error);
         }
     );
   }
@@ -89,16 +99,65 @@ export class MissionsComponent implements OnInit {
     return "fas fa-caret-down";
   }
 
-  simulate(actionId: number) {
-
-  }
-
   canSimulate() {
     const role = sessionStorage.getItem("role");
     const id = Number(sessionStorage.getItem("id"));
     const urlId = this.urlService.getLearnerId();
     return (role != null && role == "admin") || (id != null && id == urlId);
   }
+
+  getScore(inscriptionId: any, actionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            return action.score;
+          }
+        }
+      }
+    }
+  }
+
+  isValid(inscriptionId: any, actionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            return action.score >= action.actionByFkAction.scoreMinimum;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  isRemovable(inscriptionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id) {
+            if (action.score != null) {
+              return false;
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  setScore(inscriptionId: any, actionId: any, score: number) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            action.score = score;
+          }
+        }
+      }
+    }
+  }
+
 
   removeInscription(inscriptionId: any) {
     this.apiService.removeInscription(inscriptionId).subscribe(
@@ -112,9 +171,32 @@ export class MissionsComponent implements OnInit {
         this.userInscriptions = newData;
       },
       err => {
-        console.log(err.error.message);
+        alert(err.error);
+        console.log(err.error);
       }
     );
+  }
+
+  simulerAction(actionId: any, inscriptionId: any, actionName: string) {
+    this.apiService.simulerAction(actionId, inscriptionId).subscribe(
+      (data) => {
+        this.setScore(inscriptionId, actionId, data.score);
+        this.openDialog(data, actionName);
+      },
+      err => {
+        alert(err.error);
+        console.log(err.error);
+      }
+    );
+  }
+
+  openDialog(simulation: any, simulationName: string) {
+    const dialogRef = this.dialog.open(IndicatorsComponent, {
+        data: {
+          simulation,
+          simulationName
+      }
+    });
   }
 
 }

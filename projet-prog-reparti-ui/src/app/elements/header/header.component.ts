@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
         this.urlService.navigateToHome();
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }

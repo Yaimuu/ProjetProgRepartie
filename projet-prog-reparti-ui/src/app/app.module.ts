@@ -24,6 +24,10 @@ import { ConnectionComponent } from './pages/connection/connection.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { InscriptionComponent } from './pages/inscription/inscription.component';
+import {IndicatorsComponent} from "./shared/indicators/indicators.component";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+
 
 registerLocaleData(localeFr, 'fr');
 
@@ -41,7 +45,8 @@ registerLocaleData(localeFr, 'fr');
     ConnectionComponent,
     RegistrationComponent,
     ProfileComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    IndicatorsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,9 @@ registerLocaleData(localeFr, 'fr');
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent]

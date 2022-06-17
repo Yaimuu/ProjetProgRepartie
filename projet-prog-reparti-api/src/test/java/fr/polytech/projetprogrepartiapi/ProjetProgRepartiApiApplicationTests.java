@@ -8,6 +8,7 @@ class ProjetProgRepartiApiApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert true;
 	}
 
 }
