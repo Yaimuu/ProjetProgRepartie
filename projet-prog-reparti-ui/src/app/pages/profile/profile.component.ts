@@ -58,7 +58,6 @@ export class ProfileComponent implements OnInit {
 
     this.apiService.updateUser(userId, this.form).subscribe(
       () => {
-        console.log(this.form);
         const oldUsername = sessionStorage.getItem("username");
         if (this.form.nomUtil != oldUsername) {
           sessionStorage.setItem("username", this.form.nomUtil);

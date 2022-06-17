@@ -20,7 +20,7 @@
             </ng-container>
           <ng-container *ngIf="isUserLoggedIn() && !isUserAdmin()">
             <li><a routerLink="/inscription">Inscription</a></li>
-            <li><a routerLink="/missions/{{getUserId()}}">Actions</a></li>
+            <li><a (click)="urlService.navigateToMissions(getUserId())">Actions</a></li>
           </ng-container>
             <ng-container *ngIf="!isUserLoggedIn()">
               <li><a routerLink="/connection">Connexion</a></li>

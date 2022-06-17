@@ -10,7 +10,7 @@ import {UrlService} from "../../core/services/url.service";
 export class HeaderComponent implements OnInit {
 
   constructor(private apiService: ApiService,
-              private urlService: UrlService) { }
+              public urlService: UrlService) { }
 
   ngOnInit(): void {
   }
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserId() {
-    return sessionStorage.getItem("id");
+    return Number(sessionStorage.getItem("id"));
   }
 
   getIdentity() {

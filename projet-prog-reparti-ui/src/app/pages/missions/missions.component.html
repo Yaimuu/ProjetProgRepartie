@@ -29,7 +29,7 @@
           <ng-container *ngIf="isRemovable(inscription.id)">
             <app-button [text]="'Supprimer'"
                         [color]="'var(--red)'"
-                        (click)="removeInscription(inscription.id)"></app-button>
+                        (click)="$event.preventDefault(); $event.stopPropagation(); removeInscription(inscription.id)"></app-button>
           </ng-container>
         </div>
         <i [class]="getCaretIcon(inscription.id)"></i>
