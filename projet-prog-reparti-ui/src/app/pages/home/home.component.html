@@ -25,10 +25,10 @@
               </ng-container>
               <ng-container *ngIf="isUserLoggedIn()">
                 <li>
-                  <a routerLink="">Inscrire à une mission depuis la liste</a>
+                  <a routerLink="/inscription">Inscrire à une mission depuis la liste</a>
                 </li>
                 <li>
-                  <a routerLink="">Accéder à la liste des missions pour valider des actions</a>
+                  <a routerLink="/missions/{{getUserId()}}">Accéder à la liste des missions pour valider des actions</a>
                 </li>
               </ng-container>
             </ul>

@@ -57,10 +57,13 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.apiService.register(this.form).subscribe(
-      () => {
-        sessionStorage.setItem("username", this.form.login);
-        sessionStorage.setItem("role", "learner");
-        // TODO : sessionStorage.setItem("id", data.numUtil);
+      (data) => {
+        console.log(data);
+        sessionStorage.setItem("username", data.nomUtil);
+        sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("id", data.numUtil);
+        sessionStorage.setItem("surname", data.surname);
+        sessionStorage.setItem("forename", data.surname);
         this.urlService.navigateToHome();
       },
       err => {

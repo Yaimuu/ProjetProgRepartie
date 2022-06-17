@@ -6,8 +6,11 @@
       <ng-container *ngIf="isUserLoggedIn()">
         <app-search-bar></app-search-bar>
       </ng-container>
-    </div>
 
+      <ng-container *ngIf="isUserLoggedIn()">
+        <p class="user-infos"><i>User : {{getIdentity()}}</i></p>
+      </ng-container>
+    </div>
 
     <nav>
         <ul>
@@ -16,7 +19,7 @@
               <li><a routerLink="/learners">Apprenants</a></li>
             </ng-container>
           <ng-container *ngIf="isUserLoggedIn() && !isUserAdmin()">
-            <li><a routerLink="/inscription/1">Inscription</a></li>
+            <li><a routerLink="/inscription">Inscription</a></li>
             <li><a routerLink="/missions/{{getUserId()}}">Actions</a></li>
           </ng-container>
             <ng-container *ngIf="!isUserLoggedIn()">

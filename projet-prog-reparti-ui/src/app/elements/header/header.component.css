@@ -41,3 +41,7 @@ header > h1 {
 a:hover {
   color: var(--light_green);
 }
+
+.user-infos {
+  margin: 0 32px;
+}

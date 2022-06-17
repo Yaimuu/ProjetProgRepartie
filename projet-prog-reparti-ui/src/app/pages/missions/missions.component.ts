@@ -45,7 +45,7 @@ export class MissionsComponent implements OnInit {
     const userId = this.urlService.getLearnerId();
     this.apiService.getUser(userId).subscribe(
       (data) => {
-        this.identity = data.surname + " " + data.forename;
+          this.identity = data.surname + " " + data.forename;
       },
         err => {
           console.log(err.error.message);

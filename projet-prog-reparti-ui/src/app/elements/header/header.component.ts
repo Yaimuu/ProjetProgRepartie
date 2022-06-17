@@ -19,7 +19,10 @@ export class HeaderComponent implements OnInit {
     this.apiService.logout().subscribe(
       data => {
         sessionStorage.removeItem("username");
+        sessionStorage.removeItem("surname");
+        sessionStorage.removeItem("forename");
         sessionStorage.removeItem("role");
+        sessionStorage.removeItem("id");
         this.urlService.navigateToHome();
       },
       err => {
@@ -42,4 +45,7 @@ export class HeaderComponent implements OnInit {
     return sessionStorage.getItem("id");
   }
 
+  getIdentity() {
+    return sessionStorage.getItem("surname") + " " + sessionStorage.getItem("forename");
+  }
 }

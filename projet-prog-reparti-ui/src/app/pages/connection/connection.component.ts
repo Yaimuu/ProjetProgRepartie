@@ -43,6 +43,8 @@ export class ConnectionComponent implements OnInit {
     this.apiService.login(this.form).subscribe(
       data => {
         sessionStorage.setItem("username", data.nomUtil);
+        sessionStorage.setItem("surname", data.surname);
+        sessionStorage.setItem("forename", data.forename);
         sessionStorage.setItem("role", data.role);
         sessionStorage.setItem("id", data.numUtil);
         this.urlService.navigateToHome();
