@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
 import {UserInscription} from "../../core/models/UserInscription.model";
-import {Observable} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {IndicatorsComponent} from "../../shared/indicators/indicators.component";
 
 @Component({
   selector: 'app-missions',
@@ -20,7 +21,8 @@ export class MissionsComponent implements OnInit {
   hiddenCollapsible: Map<number, boolean> = new Map<number, boolean>();
 
   constructor(private apiService: ApiService,
-              private urlService: UrlService) { }
+              private urlService: UrlService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.setIdentity();
@@ -175,16 +177,26 @@ export class MissionsComponent implements OnInit {
     );
   }
 
-  simulerAction(actionId: any, inscriptionId: any) {
+  simulerAction(actionId: any, inscriptionId: any, actionName: string) {
     this.apiService.simulerAction(actionId, inscriptionId).subscribe(
       (data) => {
         this.setScore(inscriptionId, actionId, data.score);
+        this.openDialog(data, actionName);
       },
       err => {
         alert(err.error);
         console.log(err.error);
       }
     );
+  }
+
+  openDialog(simulation: any, simulationName: string) {
+    const dialogRef = this.dialog.open(IndicatorsComponent, {
+        data: {
+          simulation,
+          simulationName
+      }
+    });
   }
 
 }

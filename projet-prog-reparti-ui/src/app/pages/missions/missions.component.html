@@ -49,7 +49,7 @@
             <ng-container *ngIf="canSimulate() && getScore(inscription.id, action.id) == null">
               <app-button [text]="'Simuler'"
                           [color]="'var(--light_green)'"
-                          (click)="simulerAction(action.id, inscription.id)"></app-button>
+                          (click)="simulerAction(action.id, inscription.id, action.wording)"></app-button>
             </ng-container>
           </div>
         </ng-container>
