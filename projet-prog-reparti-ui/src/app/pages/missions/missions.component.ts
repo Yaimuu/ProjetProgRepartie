@@ -100,4 +100,21 @@ export class MissionsComponent implements OnInit {
     return (role != null && role == "admin") || (id != null && id == urlId);
   }
 
+  removeInscription(inscriptionId: any) {
+    this.apiService.removeInscription(inscriptionId).subscribe(
+      () => {
+        let newData = [];
+        for(const userInscription of this.userInscriptions) {
+          if(userInscription.id != inscriptionId) {
+            newData.push(userInscription);
+          }
+        }
+        this.userInscriptions = newData;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
 }

@@ -64,5 +64,10 @@ export class ApiService {
   registerUserToMission(userId: number, missionId: number): Observable<any> {
     return this.http.post(this.baseUrl + 'inscription/register/' + userId + '/' + missionId, {}, this.httpOptions);
   }
+
+  removeInscription(inscriptionId: number) {
+    return this.http.post(this.baseUrl + 'inscription/remove/' + inscriptionId, {}, this.httpOptions);
+  }
+
 }
 

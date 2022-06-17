@@ -25,6 +25,11 @@
         <p>
           {{inscription.mission}} <span class="date_color">inscrit le {{inscription.date}}</span>
         </p>
+        <div class="delete-button">
+          <app-button [text]="'Supprimer'"
+                      [color]="'var(--red)'"
+                      (click)="removeInscription(inscription.id)"></app-button>
+        </div>
         <i [class]="getCaretIcon(inscription.id)"></i>
       </div>
       <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
