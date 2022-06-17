@@ -35,7 +35,7 @@
       <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
         <ng-container *ngFor="let action of inscription.actions">
           <div class="collapsible-block-content">
-            <p class="action-wording">
+            <p>
               {{action.wording}}
             </p>
             <ng-container *ngIf="getScore(inscription.id, action.id) != null">
