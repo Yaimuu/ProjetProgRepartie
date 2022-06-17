@@ -65,7 +65,9 @@ public class ActionController {
 
         Action action = actionService.getActionById(idAction).get();
         InscriptionAction inscriptionAction = inscriptionActionService.getInscriptionActionFromValue(inscriptionService.getInscriptionById(idInscription).get(), action);
-
+        if(inscriptionAction.getScore()!=null){
+            return new ResponseEntity("Action déjà simulée", HttpStatus.BAD_REQUEST);
+        }
         if(u != null) {
 
             Random rand = new Random();
