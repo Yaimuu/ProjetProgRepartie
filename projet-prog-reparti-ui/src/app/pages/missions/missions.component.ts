@@ -132,6 +132,11 @@ export class MissionsComponent implements OnInit {
   }
 
   isRemovable(inscriptionId: any) {
+    const userId = Number(sessionStorage.getItem("id"));
+    if (this.urlService.getLearnerId() != userId) {
+      return false;
+    }
+
     if (this.inscriptionsActions.length > 0) {
       for(const inscription of this.inscriptionsActions) {
         for(const action of inscription) {
