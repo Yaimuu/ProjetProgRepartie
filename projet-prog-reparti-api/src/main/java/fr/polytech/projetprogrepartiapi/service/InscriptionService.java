@@ -40,6 +40,4 @@ public class InscriptionService {
         inscriptionRepository.delete(inscription);
     }
 
-
-
 }
