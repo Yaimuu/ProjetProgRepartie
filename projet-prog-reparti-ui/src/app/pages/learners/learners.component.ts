@@ -25,6 +25,9 @@ export class LearnersComponent implements OnInit {
               private apiService: ApiService) { }
 
   ngOnInit(): void {
+    if (!this.isUserAdmin()) {
+      this.displayedColumns = this.displayedColumns.slice(0,-2);
+    }
     this.getAllLearners();
   }
 
@@ -46,21 +49,25 @@ export class LearnersComponent implements OnInit {
 
     if(this.selectedLearners.length > 0) {
       for (let line of this.dataSource.data) {
-        if (line.id != null) {
-          const selectedLearnerIndex = this.selectedLearners.indexOf(line.id);
+        if (line.numUtil != null) {
+          const selectedLearnerIndex = this.selectedLearners.indexOf(line.numUtil);
           // if learnerId is not selected
           if (selectedLearnerIndex == -1) {
             newData.push(line);
           } else {
-            // TODO : update data base with API
+            this.apiService.removeUser(line.numUtil).subscribe(
+              () => {},
+              err => {
+                console.log(err.error.message);
+              }
+            );
           }
         }
       }
+      this.dataSource.data = newData;
+      this.numberOfLearners = newData.length;
+      this.selectedLearners = [];
     }
-
-    this.dataSource.data = newData;
-    this.numberOfLearners = newData.length;
-    this.selectedLearners = [];
   }
 
   getAllLearners() {
@@ -73,6 +80,11 @@ export class LearnersComponent implements OnInit {
         console.log(err.error.message);
       }
     );
+  }
+
+    isUserAdmin() {
+    const role = sessionStorage.getItem("role");
+    return role != null && role == "admin";
   }
 
 }

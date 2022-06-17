@@ -1,5 +1,5 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {DatePipe} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +25,13 @@ export class HomeComponent implements OnInit {
     this.currentDate = this.datePipe.transform(this.date, 'dd MMMM YYYY hh:mm:ss z');
   }
 
+  isUserLoggedIn() {
+    const user = sessionStorage.getItem("username");
+    return !(user === null);
+  }
 
+  getUserId() {
+    return sessionStorage.getItem("id");
+  }
 
 }

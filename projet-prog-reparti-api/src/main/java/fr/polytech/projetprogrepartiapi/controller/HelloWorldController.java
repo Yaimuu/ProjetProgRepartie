@@ -1,6 +1,7 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
 import fr.polytech.projetprogrepartiapi.entities.*;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;

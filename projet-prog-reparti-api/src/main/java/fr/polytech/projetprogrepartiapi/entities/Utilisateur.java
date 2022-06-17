@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -38,9 +39,9 @@ public class Utilisateur {
     @Basic
     @Column(name = "forename", nullable = true, length = 50)
     private String forename;
-    @OneToMany(mappedBy = "utilisateurByFkUser")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateurByFkUser")
     @JsonBackReference
-    private Collection<Inscription> inscriptionsById;
+    private List<Inscription> inscriptionsById;
 
     protected Utilisateur(){}
     /**
@@ -58,11 +59,11 @@ public class Utilisateur {
         this.salt = salt;
         this.role = role;
     }
-    public Collection<Inscription> getInscriptionsById() {
+    public List<Inscription> getInscriptionsById() {
         return inscriptionsById;
     }
 
-    public void setInscriptionsById(Collection<Inscription> inscriptionsById) {
+    public void setInscriptionsById(List<Inscription> inscriptionsById) {
         this.inscriptionsById = inscriptionsById;
     }
 

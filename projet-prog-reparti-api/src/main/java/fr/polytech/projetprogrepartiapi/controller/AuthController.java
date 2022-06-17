@@ -1,14 +1,13 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import fr.polytech.projetprogrepartiapi.entities.LoginRequest;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.helpers.PasswordHelper;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.AuthentificationService;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
-import net.bytebuddy.implementation.bind.annotation.DefaultMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -113,12 +110,10 @@ public class AuthController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    public ResponseEntity register(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<Object> register(HttpServletRequest request, HttpServletResponse response) {
 
         UtilisateurService uService = new UtilisateurService(utilisateurRepository);
         String requestString = "";
-        LoginRequest loginRequest = new LoginRequest();
-        Utilisateur utilisateur = null;
         Map<String, Object> mappedRequest = new HashMap<>();
 
         try {
@@ -133,17 +128,22 @@ public class AuthController {
 
         byte[] salt = PasswordHelper.GenerateSalt();
         byte[] password = PasswordHelper.generatePasswordHash(mappedRequest.get("password").toString().toCharArray(), salt);
-        long id = uService.getNumberUtilisateurs() + 1;
+        long id = utilisateurRepository.getMaxNumUtilisateur() + 1;
 
         Utilisateur userToRegister = new Utilisateur((int) id,
                 (String) mappedRequest.get("login"),
-                new String(password, StandardCharsets.UTF_8),
-                new String(salt, StandardCharsets.UTF_8),
+                PasswordHelper.bytesToString(password),
+                PasswordHelper.bytesToString(salt),
                 "learner");
 
         userToRegister.setForename(mappedRequest.get("forename").toString());
         userToRegister.setSurname(mappedRequest.get("surname").toString());
+        userToRegister.setEmail(mappedRequest.get("email").toString());
+        uService.createUtilisateur(userToRegister);
 
-        return new ResponseEntity(HttpStatus.OK);
+        HttpSession session = request.getSession();
+        session.setAttribute("id", (int) id);
+
+        return ResponseEntity.ok(userToRegister);
     }
 }

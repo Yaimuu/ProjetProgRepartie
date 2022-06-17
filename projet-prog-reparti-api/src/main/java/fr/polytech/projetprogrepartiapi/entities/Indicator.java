@@ -1,5 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,11 +17,14 @@ public class Indicator {
     @Column(name = "valueifcheck", nullable = true)
     private Integer valueIfCheck;
     @Basic
-    @Column(name = "valueifunCheck", nullable = true)
+    @Column(name = "valueifuncheck", nullable = true)
     private Integer valueIfUnCheck;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
     private Action actionByFkAction;
+
+    private boolean isChecked;
 
     protected Indicator(){}
     public Indicator(Action action){
@@ -63,5 +68,13 @@ public class Indicator {
 
     public void setActionByFkAction(Action actionByFkAction) {
         this.actionByFkAction = actionByFkAction;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

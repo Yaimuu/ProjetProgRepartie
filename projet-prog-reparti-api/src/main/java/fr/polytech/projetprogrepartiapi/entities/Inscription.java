@@ -1,6 +1,9 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -20,9 +23,11 @@ public class Inscription {
     @JoinColumn(name = "fk_user", referencedColumnName = "NumUtil", nullable = false)
     private Utilisateur utilisateurByFkUser;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "fk_mission", referencedColumnName = "id", nullable = false)
     private Mission missionByFkMission;
-    @OneToMany(mappedBy = "inscriptionByFkInscription")
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscriptionByFkInscription")
     private Collection<InscriptionAction> inscriptionActionsById;
 
     protected Inscription(){}

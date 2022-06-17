@@ -1,6 +1,6 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
-import fr.polytech.projetprogrepartiapi.entities.*;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value={"/api/home", "/api"})

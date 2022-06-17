@@ -11,16 +11,17 @@ export class UrlService {
   constructor(private router: Router,
               private location: Location) { }
 
-  navigateToMissions(userId: number) {
-    this.router.navigate(["missions", userId], {
-      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
-    });
-  }
-
   navigateToProfile(userId: number) {
     this.router.navigate(["profile", userId], {
       queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
     });
+  }
+
+  navigateToMissions(userId: number) {
+    this.router.navigateByUrl("/", { skipLocationChange: true })
+      .then(() => this.router.navigate(["missions", userId], {
+        queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+      }));
   }
 
   navigateToHome() {
@@ -35,8 +36,14 @@ export class UrlService {
     });
   }
 
-  getProjectId() {
+  navigateToConnection() {
+    this.router.navigate(["connection"], {
+      queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
+    });
+  }
+
+  getLearnerId() {
     const urlParts = this.location.path().split("/");
-    return urlParts[2];
+    return Number(urlParts[2]);
   }
 }

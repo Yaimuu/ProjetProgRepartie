@@ -19,7 +19,10 @@ export class HeaderComponent implements OnInit {
     this.apiService.logout().subscribe(
       data => {
         sessionStorage.removeItem("username");
+        sessionStorage.removeItem("surname");
+        sessionStorage.removeItem("forename");
         sessionStorage.removeItem("role");
+        sessionStorage.removeItem("id");
         this.urlService.navigateToHome();
       },
       err => {
@@ -29,13 +32,20 @@ export class HeaderComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem("username");
-    return !(user === null)
+    const user = sessionStorage.getItem("username");
+    return !(user === null);
   }
 
   isUserAdmin() {
-    let role = sessionStorage.getItem("role");
-    return !(role === null)
+    const role = sessionStorage.getItem("role");
+    return role != null && role == "admin";
   }
 
+  getUserId() {
+    return sessionStorage.getItem("id");
+  }
+
+  getIdentity() {
+    return sessionStorage.getItem("surname") + " " + sessionStorage.getItem("forename");
+  }
 }

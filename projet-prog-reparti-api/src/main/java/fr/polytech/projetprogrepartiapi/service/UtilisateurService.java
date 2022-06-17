@@ -1,7 +1,9 @@
 package fr.polytech.projetprogrepartiapi.service;
 
 import fr.polytech.projetprogrepartiapi.controller.UtilisateurController;
+import fr.polytech.projetprogrepartiapi.entities.Inscription;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
+    public List<Utilisateur> getAllUtilisateursByRole(String role){
+        return utilisateurRepository.findAllByRole(role);
+    }
 
     public boolean isAdmin(int id) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
@@ -49,9 +54,12 @@ public class UtilisateurService {
     }
 
     public void deleteUtilisateur(Utilisateur utilisateur){
-        utilisateurRepository.delete(utilisateur);
+        this.utilisateurRepository.delete(utilisateur);
     }
 
+    public List<Inscription> getAllInscriptionsFromUser(Utilisateur utilisateur){
+        return utilisateur.getInscriptionsById();
+    }
     public Utilisateur getAutenticatedUtilisateur(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -63,4 +71,5 @@ public class UtilisateurService {
 
         return null;
     }
+
 }

@@ -18,7 +18,7 @@
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Numéro</th>
         <td mat-cell *matCellDef="let element">
-          <a routerLink="/profile/{{element.id}}">{{element.id}}</a>
+          <a routerLink="/missions/{{element.numUtil}}">{{element.numUtil}}</a>
         </td>
       </ng-container>
 
@@ -40,7 +40,7 @@
         <td mat-cell *matCellDef="let element">
           <app-button [text]="'Missions'"
                       [color]="'var(--light_green)'"
-                      (click)="urlService.navigateToMissions(element.id)"></app-button>
+                      (click)="urlService.navigateToMissions(element.numUtil)"></app-button>
         </td>
       </ng-container>
 
@@ -50,7 +50,7 @@
         <td mat-cell *matCellDef="let element">
           <app-button [text]="'Modifier'"
                       [color]="'var(--black)'"
-                      (click)="urlService.navigateToProfile(element.id)"></app-button>
+                      (click)="urlService.navigateToProfile(element.numUtil)"></app-button>
         </td>
       </ng-container>
 
@@ -62,7 +62,7 @@
                       (click)="deleteSelectedLearners()"></app-button>
         </th>
         <td mat-cell *matCellDef="let element">
-          <input type="checkbox" (change)="selectLearner(element.id)">
+          <input type="checkbox" (change)="selectLearner(element.numUtil)">
         </td>
       </ng-container>
 

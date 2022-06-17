@@ -18,17 +18,23 @@
 
             <h2>Pour commencer, vous pouvez vous :</h2>
             <ul>
-              <li>
-                1) <a routerLink="">Enregistrer en tant qu'apprenant</a>
-              </li>
-              <li>
-                2) <a routerLink="">Inscrire à un jeu depuis la liste</a>
-              </li>
-              <li>
-                3) <a routerLink="">Accéder à la liste des missions pour valider des actions</a>
-              </li>
+              <ng-container *ngIf="!isUserLoggedIn()">
+                <li>
+                  <a routerLink="/registration">Enregistrer en tant qu'apprenant</a>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="isUserLoggedIn()">
+                <li>
+                  <a routerLink="/inscription">Inscrire à une mission depuis la liste</a>
+                </li>
+                <li>
+                  <a routerLink="/missions/{{getUserId()}}">Accéder à la liste des missions pour valider des actions</a>
+                </li>
+              </ng-container>
             </ul>
-            <h3 class="tips">D'autres informations comme la liste des apprenants ou des actions sont disponibles en haut à droite.</h3>
+            <ng-container *ngIf="isUserLoggedIn()">
+              <h3 class="tips">D'autres informations comme la liste des apprenants ou des actions sont disponibles en haut à droite.</h3>
+            </ng-container>
         </div>
 
         <div class="home-image">

@@ -23,6 +23,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { ConnectionComponent } from './pages/connection/connection.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { InscriptionComponent } from './pages/inscription/inscription.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -39,7 +40,8 @@ registerLocaleData(localeFr, 'fr');
     SearchBarComponent,
     ConnectionComponent,
     RegistrationComponent,
-    ProfileComponent
+    ProfileComponent,
+    InscriptionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,11 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
+import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.repository.query.Param;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -17,18 +21,24 @@ public class Action {
     @Column(name = "scoreminimum", nullable = true)
     private Integer scoreMinimum;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "fk_action", referencedColumnName = "id")
     private Action actionByFkAction;
+    @JsonBackReference
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<Action> actionsById;
+
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "action__mission", joinColumns = {
             @JoinColumn(name = "fk_action", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "fk_mission",
                     nullable = false, updatable = false) })
-    private Collection<Mission> MissionsById;
+    private List<Mission> MissionsById;
+    @JsonManagedReference
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<Indicator> indicatorsById;
+    @JsonBackReference
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<InscriptionAction> inscriptionActionsById;
 
@@ -73,8 +83,8 @@ public class Action {
     public void setActionsById(Collection<Action> actionsById) {
         this.actionsById = actionsById;
     }
-
-    public Collection<Mission> getMissionsById() {
+    @JsonIgnore
+    public List<Mission> getMissionsById() {
         return MissionsById;
     }
 

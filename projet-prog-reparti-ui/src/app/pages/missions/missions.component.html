@@ -15,17 +15,38 @@
     </div>
 
     <p class="missions-tips">
-      Cliquez sur un jeu pour voir les missions.
+      Cliquez sur une missions pour voir les actions.
     </p>
 
-    <div class="black-block" *ngFor="let action of actions">
-      <i class="fas fa-angle-down"></i>
-      <img src="assets/images/joystick.png">
-      <p>
-        {{action.libelle}} <span class="date_color">inscrit le {{action.date}}</span>
-      </p>
-      <i class="fas fa-caret-down"></i>
-    </div>
+    <ng-container *ngFor="let inscription of userInscriptions">
+      <div class="black-block" (click)="showCollapsible(inscription.id)">
+        <i [class]="getAngleIcon(inscription.id)"></i>
+        <img src="assets/images/joystick.png">
+        <p>
+          {{inscription.mission}} <span class="date_color">inscrit le {{inscription.date}}</span>
+        </p>
+        <div class="delete-button">
+          <app-button [text]="'Supprimer'"
+                      [color]="'var(--red)'"
+                      (click)="removeInscription(inscription.id)"></app-button>
+        </div>
+        <i [class]="getCaretIcon(inscription.id)"></i>
+      </div>
+      <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
+        <ng-container *ngFor="let action of inscription.actions">
+          <div class="collapsible-block-content">
+            <p class="action-wording">
+              {{action.wording}}
+            </p>
+            <ng-container *ngIf="canSimulate()">
+              <app-button [text]="'Simuler'"
+                          [color]="'var(--light_green)'"
+                          (click)="simulate(action.id)"></app-button>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
 
   </section>
 

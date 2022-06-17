@@ -7,6 +7,10 @@ import {MissionsComponent} from "./pages/missions/missions.component";
 import {ConnectionComponent} from "./pages/connection/connection.component";
 import {RegistrationComponent} from "./pages/registration/registration.component";
 import {ProfileComponent} from "./pages/profile/profile.component";
+import {AuthIsLoggedGuard} from "./core/guard/auth-is-logged.guard";
+import {AuthIsNotLoggedGuard} from "./core/guard/auth-is-not-logged.guard";
+import {AdminGuard} from "./core/guard/admin.guard";
+import {InscriptionComponent} from "./pages/inscription/inscription.component";
 
 
 const routes: Routes = [
@@ -18,24 +22,19 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: "home", component: HomeComponent },
-      { path: "missions/:userId", component: MissionsComponent },
-      { path: "connection", component: ConnectionComponent },
-      { path: "registration", component: RegistrationComponent },
-      { path: "learners", component: LearnersComponent },
-      { path: "profile/:userId", component: ProfileComponent },
-      // { path: "games", component: GamesComponent },
-      // { path: "actions", component: DemandsPageComponent },
+      { path: "missions/:userId", component: MissionsComponent, canActivate: [AuthIsLoggedGuard] },
+      { path: "connection", component: ConnectionComponent, canActivate: [AuthIsNotLoggedGuard] },
+      { path: "registration", component: RegistrationComponent, canActivate: [AuthIsNotLoggedGuard] },
+      { path: "learners", component: LearnersComponent, canActivate: [AuthIsLoggedGuard] },
+      { path: "profile/:userId", component: ProfileComponent, canActivate: [AuthIsLoggedGuard, AdminGuard] },
+      { path: "inscription", component: InscriptionComponent, canActivate: [AuthIsLoggedGuard] }
     ],
 
   },
-  // {
-  //   path: 'checkout',
-  //   component: CheckoutViewComponent,
-  //   canActivate: [AuthGuard]   // Our guard protects /checkout
-  // },
-  // {
-  //   path: 'login', component: LoginComponent
-  // }
+  {
+    path: "**",  // Angular router selects this route any time the requested URL doesn't match any router paths.
+    redirectTo: "home",
+  },
 ];
 
 @NgModule({

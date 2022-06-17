@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
 
@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   formValidation() {
+    const regexp = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!this.form.surname) {
       this.error = "Veuillez renseigner votre nom."
       return false;
@@ -34,6 +35,9 @@ export class RegistrationComponent implements OnInit {
       return false;
     } else if (!this.form.email){
       this.error = "Veuillez renseigner votre email."
+      return false;
+    } else if (!this.form.email.match(regexp)) {
+      this.error = "L'email saisie n'est pas valide.";
       return false;
     } else if (!this.form.login) {
       this.error = "Veuillez renseigner votre nom d'utilisateur."
@@ -53,7 +57,12 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.apiService.register(this.form).subscribe(
-      data => {
+      (data) => {
+        sessionStorage.setItem("username", data.nomUtil);
+        sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("id", data.numUtil);
+        sessionStorage.setItem("surname", data.surname);
+        sessionStorage.setItem("forename", data.surname);
         this.urlService.navigateToHome();
       },
       err => {

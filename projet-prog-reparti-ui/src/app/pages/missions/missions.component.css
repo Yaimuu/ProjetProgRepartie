@@ -33,7 +33,7 @@
   background-color: var(--black);
   padding: 16px;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -58,6 +58,26 @@
   color: var(--orange);
 }
 
-.fa-caret-down {
+.fa-caret-down, .fa-caret-up {
   margin-left: auto;
+}
+
+.collapsible-block {
+  background-color: var(--white);
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+}
+
+.collapsible-block-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.action-wording:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.delete-button {
+  margin-left: 32px;
 }

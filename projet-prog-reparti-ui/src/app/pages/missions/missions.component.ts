@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-const actions = [
-  {id: 1, libelle: "Petanque", date: "15-06-2022"},
-  {id: 2, libelle: "Petanque", date: "15-06-2022"},
-  {id: 3, libelle: "Petanque", date: "15-06-2022"}
-];
-
+import {ApiService} from "../../core/services/api.service";
+import {UrlService} from "../../core/services/url.service";
+import {UserInscription} from "../../core/models/UserInscription.model";
 
 @Component({
   selector: 'app-missions',
@@ -14,15 +10,111 @@ const actions = [
 })
 export class MissionsComponent implements OnInit {
 
-  identity: string = "Lorem ipsum";
+  identity: string = "";
 
-  actions = actions;
+  userInscriptions: UserInscription[] = [];
 
-  constructor() { }
+  hiddenCollapsible: Map<number, boolean> = new Map<number, boolean>();
+
+  constructor(private apiService: ApiService,
+              private urlService: UrlService) { }
 
   ngOnInit(): void {
+    this.setIdentity();
+    this.getInscriptions();
   }
 
-  // TODO: getName from Id
+  getInscriptions() {
+    const userId = this.urlService.getLearnerId();
+    this.apiService.getInscriptionsForUser(userId).subscribe(
+      (data: UserInscription[]) => {
+        for (const inscription of data){
+          this.userInscriptions.push(new UserInscription(inscription));
+            if (inscription.id != null) {
+              this.hiddenCollapsible.set(inscription.id, true);
+            }
+        }
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  setIdentity() {
+    const userId = this.urlService.getLearnerId();
+    this.apiService.getUser(userId).subscribe(
+      (data) => {
+          this.identity = data.surname + " " + data.forename;
+      },
+        err => {
+          console.log(err.error.message);
+        }
+    );
+  }
+
+  showCollapsible(missionId: number | undefined) {
+    if(missionId != null) {
+      const collapsibleState = this.hiddenCollapsible.get(missionId);
+      this.hiddenCollapsible.set(missionId, !collapsibleState);
+    }
+  }
+
+  isCollapsibleHidden(missionId: number | undefined) {
+    if(missionId != null) {
+      return this.hiddenCollapsible.get(missionId);
+    }
+    return false;
+  }
+
+  getAngleIcon(missionId: number | undefined) {
+    if(missionId != null) {
+      if (this.hiddenCollapsible.get(missionId)) {
+        return "fas fa-angle-down";
+      } else {
+        return "fas fa-angle-up";
+      }
+    }
+    return "fas fa-angle-down";
+  }
+
+  getCaretIcon(missionId: number | undefined) {
+    if(missionId != null) {
+      if (this.hiddenCollapsible.get(missionId)) {
+        return "fas fa-caret-down";
+      } else {
+        return "fas fa-caret-up";
+      }
+    }
+    return "fas fa-caret-down";
+  }
+
+  simulate(actionId: number) {
+
+  }
+
+  canSimulate() {
+    const role = sessionStorage.getItem("role");
+    const id = Number(sessionStorage.getItem("id"));
+    const urlId = this.urlService.getLearnerId();
+    return (role != null && role == "admin") || (id != null && id == urlId);
+  }
+
+  removeInscription(inscriptionId: any) {
+    this.apiService.removeInscription(inscriptionId).subscribe(
+      () => {
+        let newData = [];
+        for(const userInscription of this.userInscriptions) {
+          if(userInscription.id != inscriptionId) {
+            newData.push(userInscription);
+          }
+        }
+        this.userInscriptions = newData;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
 
 }
