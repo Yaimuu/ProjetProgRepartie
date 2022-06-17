@@ -45,7 +45,7 @@ export class InscriptionComponent implements OnInit {
         this.validationBlockHidden = false;
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }
@@ -60,7 +60,7 @@ export class InscriptionComponent implements OnInit {
         this.dataSource.data = newData;
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }

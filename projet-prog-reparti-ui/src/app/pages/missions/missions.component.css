@@ -81,3 +81,11 @@
 .delete-button {
   margin-left: 32px;
 }
+
+.red-score {
+  color: var(--red);
+}
+
+.green-score {
+  color: var(--dark_green);
+}

@@ -44,7 +44,7 @@ export class SearchBarComponent implements OnInit {
         );
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }

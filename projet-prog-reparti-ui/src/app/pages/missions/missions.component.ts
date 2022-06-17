@@ -44,7 +44,7 @@ export class MissionsComponent implements OnInit {
         }
       },
       err => {
-        console.log(err.error.message);
+        console.log(err.error);
       }
     );
   }
@@ -56,7 +56,7 @@ export class MissionsComponent implements OnInit {
           this.identity = data.surname + " " + data.forename;
       },
         err => {
-          console.log(err.error.message);
+          console.log(err.error);
         }
     );
   }
@@ -116,6 +116,34 @@ export class MissionsComponent implements OnInit {
     }
   }
 
+  isValid(inscriptionId: any, actionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            return action.score >= action.actionByFkAction.scoreMinimum;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  isRemovable(inscriptionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id) {
+            if (action.score != null) {
+              return false;
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   setScore(inscriptionId: any, actionId: any, score: number) {
     if (this.inscriptionsActions.length > 0) {
       for(const inscription of this.inscriptionsActions) {
@@ -141,7 +169,8 @@ export class MissionsComponent implements OnInit {
         this.userInscriptions = newData;
       },
       err => {
-        console.log(err.error.message);
+        alert(err.error);
+        console.log(err.error);
       }
     );
   }
@@ -152,7 +181,8 @@ export class MissionsComponent implements OnInit {
         this.setScore(inscriptionId, actionId, data.score);
       },
       err => {
-        console.log(err.error.message);
+        alert(err.error);
+        console.log(err.error);
       }
     );
   }
