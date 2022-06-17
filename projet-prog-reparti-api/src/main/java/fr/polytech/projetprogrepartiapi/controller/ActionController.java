@@ -1,14 +1,10 @@
 package fr.polytech.projetprogrepartiapi.controller;
 
-import fr.polytech.projetprogrepartiapi.entities.Action;
-import fr.polytech.projetprogrepartiapi.entities.Indicator;
-import fr.polytech.projetprogrepartiapi.entities.SimulationResponse;
-import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
-import fr.polytech.projetprogrepartiapi.repositories.ActionRepository;
-import fr.polytech.projetprogrepartiapi.repositories.IndicatorRepository;
-import fr.polytech.projetprogrepartiapi.repositories.InscriptionActionRepository;
-import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
+import fr.polytech.projetprogrepartiapi.entities.*;
+import fr.polytech.projetprogrepartiapi.repositories.*;
 import fr.polytech.projetprogrepartiapi.service.ActionService;
+import fr.polytech.projetprogrepartiapi.service.InscriptionActionService;
+import fr.polytech.projetprogrepartiapi.service.InscriptionService;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +27,15 @@ public class ActionController {
     private final UtilisateurRepository utilisateurRepository;
     private final IndicatorRepository indicatorRepository;
     private final InscriptionActionRepository inscriptionActionRepository;
+    private final InscriptionRepository inscriptionRepository;
 
-    public ActionController(ActionRepository actionRepository, UtilisateurRepository utilisateurRepository, IndicatorRepository indicatorRepository, InscriptionActionRepository inscriptionActionRepository) {
+    public ActionController(ActionRepository actionRepository, UtilisateurRepository utilisateurRepository, IndicatorRepository indicatorRepository, InscriptionActionRepository inscriptionActionRepository, InscriptionRepository inscriptionRepository) {
 
         this.actionRepository = actionRepository;
         this.utilisateurRepository = utilisateurRepository;
         this.indicatorRepository = indicatorRepository;
         this.inscriptionActionRepository = inscriptionActionRepository;
+        this.inscriptionRepository = inscriptionRepository;
     }
 
     @GetMapping(value = "/actions")
@@ -53,11 +51,21 @@ public class ActionController {
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
-    @GetMapping(value = "/action/simuler/{idAction}")
-    public ResponseEntity<Object> simulerAction(@PathVariable int idAction, HttpServletRequest request){
+    @GetMapping(value = "/action/simuler/{idAction}/{idInscription}")
+    public ResponseEntity<Object> simulerAction(@PathVariable int idAction, @PathVariable int idInscription, HttpServletRequest request){
         ActionService actionService = new ActionService(actionRepository);
         UtilisateurService utilisateurService = new UtilisateurService(utilisateurRepository);
+        InscriptionService inscriptionService = new InscriptionService(inscriptionRepository);
+        InscriptionActionService inscriptionActionService = new InscriptionActionService(inscriptionActionRepository);
+
         Utilisateur u = utilisateurService.getAutenticatedUtilisateur(request);
+
+        if(!actionService.getActionById(idAction).isPresent() || !inscriptionService.getInscriptionById(idInscription).isPresent())
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        Action action = actionService.getActionById(idAction).get();
+        InscriptionAction inscriptionAction = new InscriptionAction(inscriptionService.getInscriptionById(idInscription).get(), action);
+
         if(u != null) {
 
             Random rand = new Random();
@@ -73,12 +81,13 @@ public class ActionController {
 
                 i.setChecked(isIndicatorChecked);
             }
-            Action action = actionService.getActionById(idAction).get();
+
             SimulationResponse simulationResponse =
                     new SimulationResponse(action, score >= action.getScoreMinimum(),
                     score, indicators);
 
-
+            inscriptionAction.setScore(score);
+            inscriptionActionService.createInscription(inscriptionAction);
 
             return ResponseEntity.ok(simulationResponse);
         }
