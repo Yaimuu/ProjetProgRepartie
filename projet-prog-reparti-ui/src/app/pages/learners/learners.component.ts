@@ -25,6 +25,9 @@ export class LearnersComponent implements OnInit {
               private apiService: ApiService) { }
 
   ngOnInit(): void {
+    if (!this.isUserAdmin()) {
+      this.displayedColumns = this.displayedColumns.slice(0,-2);
+    }
     this.getAllLearners();
   }
 
@@ -77,6 +80,11 @@ export class LearnersComponent implements OnInit {
         console.log(err.error.message);
       }
     );
+  }
+
+    isUserAdmin() {
+    const role = sessionStorage.getItem("role");
+    return role != null && role == "admin";
   }
 
 }

@@ -44,6 +44,7 @@ export class ConnectionComponent implements OnInit {
       data => {
         sessionStorage.setItem("username", data.nomUtil);
         sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("id", data.numUtil);
         this.urlService.navigateToHome();
       },
       err => {

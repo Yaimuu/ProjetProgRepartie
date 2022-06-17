@@ -38,4 +38,8 @@ export class HeaderComponent implements OnInit {
     return role != null && role == "admin";
   }
 
+  getUserId() {
+    return sessionStorage.getItem("id");
+  }
+
 }
