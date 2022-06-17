@@ -12,4 +12,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Intege
 
     @Query("SELECT u FROM Utilisateur u  WHERE u.role LIKE ?1")
     public List<Utilisateur> findAllByRole(String role);
+
+    @Query("SELECT MAX(numUtil) FROM Utilisateur")
+    public int getMaxNumUtilisateur();
 }
