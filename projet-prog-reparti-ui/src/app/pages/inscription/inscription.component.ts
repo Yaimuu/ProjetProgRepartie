@@ -13,26 +13,6 @@ import {ApiService} from "../../core/services/api.service";
 })
 export class InscriptionComponent implements OnInit {
 
-  missions = [
-    {
-      id: 1,
-      wording: "Christian",
-      actions: [{
-        wording: "Polytech"
-      }]
-    },
-    {
-      id: 2,
-      wording: "Vial",
-      actions: [{
-        wording: "Lyon"
-      },
-        {
-          wording: "Clermont"
-        }]
-    }
-  ];
-
   // data source that fills table with information
   dataSource: MatTableDataSource<Mission> = new MatTableDataSource<Mission>();
 
@@ -59,17 +39,29 @@ export class InscriptionComponent implements OnInit {
   }
 
   register(missionId: number) {
-    this.validationBlockHidden = false;
+    const userId = Number(sessionStorage.getItem("id"));
+    this.apiService.registerUserToMission(userId, missionId).subscribe(
+      () => {
+        this.validationBlockHidden = false;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
   }
 
   getMissions() {
-    for (const mission of this.missions){
-      this.dataSource.data.push(new Mission(mission));
-    }
-  }
-
-  getCheckboxValue(missionId: number) {
-    const userId = this.urlService.getLearnerId();
-
+    let newData: Mission[] = [];
+    this.apiService.getMissions().subscribe(
+      data => {
+        for (const mission of data) {
+          newData.push(new Mission(mission));
+        }
+        this.dataSource.data = newData;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
   }
 }

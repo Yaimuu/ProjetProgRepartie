@@ -25,6 +25,11 @@
         <p>
           {{inscription.mission}} <span class="date_color">inscrit le {{inscription.date}}</span>
         </p>
+        <div class="delete-button">
+          <app-button [text]="'Supprimer'"
+                      [color]="'var(--red)'"
+                      (click)="removeInscription(inscription.id)"></app-button>
+        </div>
         <i [class]="getCaretIcon(inscription.id)"></i>
       </div>
       <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
@@ -33,10 +38,13 @@
             <p class="action-wording">
               {{action.wording}}
             </p>
-            <ng-container *ngIf="canSimulate()">
+            <ng-container *ngIf="getScore(inscription.id, action.id) != null">
+                <p>Score : {{getScore(inscription.id, action.id)}}</p>
+            </ng-container>
+            <ng-container *ngIf="canSimulate() && getScore(inscription.id, action.id) == null">
               <app-button [text]="'Simuler'"
                           [color]="'var(--light_green)'"
-                          (click)="simulate(action.id)"></app-button>
+                          (click)="simulerAction(action.id, inscription.id)"></app-button>
             </ng-container>
           </div>
         </ng-container>
