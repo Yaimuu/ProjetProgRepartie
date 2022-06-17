@@ -11,6 +11,7 @@ export class IndicatorsComponent implements OnInit {
 
   simulation: any;
   simulationName: any;
+  score: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               protected apiService: ApiService) { }
@@ -18,6 +19,7 @@ export class IndicatorsComponent implements OnInit {
   ngOnInit(): void {
     this.simulation = this.data.simulation;
     this.simulationName = this.data.simulationName;
+    this.score = this.data.simulation.score;
   }
 
   getColor(indicator: any){

@@ -6,6 +6,12 @@
   color: var(--dark_green);
 }
 
+.score {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+}
+
 .indicators-content {
   display: flex;
   align-items: baseline;
