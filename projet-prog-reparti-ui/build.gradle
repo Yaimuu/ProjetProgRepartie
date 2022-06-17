@@ -17,3 +17,7 @@ jar.dependsOn(npm_run_build)
 jar {
   from 'dist/projet-prog-reparti-ui' into 'static'
 }
+
+dependencies {
+
+}
