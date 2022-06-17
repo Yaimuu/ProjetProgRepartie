@@ -34,4 +34,9 @@ export class HomeComponent implements OnInit {
     return sessionStorage.getItem("id");
   }
 
+  isUserAdmin() {
+    const role = sessionStorage.getItem("role");
+    return role != null && role == "admin";
+  }
+
 }

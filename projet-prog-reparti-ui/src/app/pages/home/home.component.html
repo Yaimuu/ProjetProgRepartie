@@ -16,14 +16,16 @@
               En vous souhaitant une agréable visite !
             </p>
 
-            <h2>Pour commencer, vous pouvez vous :</h2>
+            <ng-container *ngIf="!isUserAdmin()">
+              <h2>Pour commencer, vous pouvez vous :</h2>
+            </ng-container>
             <ul>
               <ng-container *ngIf="!isUserLoggedIn()">
                 <li>
                   <a routerLink="/registration">Enregistrer en tant qu'apprenant</a>
                 </li>
               </ng-container>
-              <ng-container *ngIf="isUserLoggedIn()">
+              <ng-container *ngIf="isUserLoggedIn() && !isUserAdmin()">
                 <li>
                   <a routerLink="/inscription">Inscrire à une mission depuis la liste</a>
                 </li>
@@ -33,7 +35,7 @@
               </ng-container>
             </ul>
             <ng-container *ngIf="isUserLoggedIn()">
-              <h3 class="tips">D'autres informations comme la liste des apprenants ou des actions sont disponibles en haut à droite.</h3>
+              <h3 class="tips">La liste des apprenants et des actions sont disponibles en haut à droite.</h3>
             </ng-container>
         </div>
 
