@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: "registration", component: RegistrationComponent, canActivate: [AuthIsNotLoggedGuard] },
       { path: "learners", component: LearnersComponent, canActivate: [AuthIsLoggedGuard] },
       { path: "profile/:userId", component: ProfileComponent, canActivate: [AuthIsLoggedGuard, AdminGuard] },
-      { path: "inscription/:userId", component: InscriptionComponent, canActivate: [AuthIsLoggedGuard] }
+      { path: "inscription", component: InscriptionComponent, canActivate: [AuthIsLoggedGuard] }
     ],
 
   },

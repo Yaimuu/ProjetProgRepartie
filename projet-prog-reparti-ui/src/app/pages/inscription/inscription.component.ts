@@ -66,7 +66,6 @@ export class InscriptionComponent implements OnInit {
     for (const mission of this.missions){
       this.dataSource.data.push(new Mission(mission));
     }
-    console.log(this.dataSource.data);
   }
 
   getCheckboxValue(missionId: number) {
