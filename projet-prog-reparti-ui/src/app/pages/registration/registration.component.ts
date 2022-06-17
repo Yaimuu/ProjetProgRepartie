@@ -58,7 +58,6 @@ export class RegistrationComponent implements OnInit {
 
     this.apiService.register(this.form).subscribe(
       (data) => {
-        console.log(data);
         sessionStorage.setItem("username", data.nomUtil);
         sessionStorage.setItem("role", data.role);
         sessionStorage.setItem("id", data.numUtil);
