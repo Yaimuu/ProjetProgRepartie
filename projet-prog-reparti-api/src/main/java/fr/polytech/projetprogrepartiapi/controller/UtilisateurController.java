@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.polytech.projetprogrepartiapi.entities.Inscription;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
 import fr.polytech.projetprogrepartiapi.helpers.PasswordHelper;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
-import fr.polytech.projetprogrepartiapi.service.InscriptionService;
 import fr.polytech.projetprogrepartiapi.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +41,7 @@ public class UtilisateurController {
         if(session.getAttribute("id") != null)
         {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
-            if(uService.isAdmin((int) session.getAttribute("id")))
-                return ResponseEntity.ok(uService.getAllUtilisateursByRole(rolename));
+            return ResponseEntity.ok(uService.getAllUtilisateursByRole(rolename));
         }
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
@@ -55,8 +54,7 @@ public class UtilisateurController {
         if(session.getAttribute("id") != null)
         {
             UtilisateurService uService = new UtilisateurService(utilisateurRepository);
-            if(uService.isAdmin((int) session.getAttribute("id")) || session.getAttribute("id").equals(id))
-                return ResponseEntity.ok(uService.getUtilisateurById(id));
+            return ResponseEntity.ok(uService.getUtilisateurById(id));
         }
 
         return new ResponseEntity(HttpStatus.FORBIDDEN);

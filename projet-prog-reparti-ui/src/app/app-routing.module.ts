@@ -10,6 +10,7 @@ import {ProfileComponent} from "./pages/profile/profile.component";
 import {AuthIsLoggedGuard} from "./core/guard/auth-is-logged.guard";
 import {AuthIsNotLoggedGuard} from "./core/guard/auth-is-not-logged.guard";
 import {AdminGuard} from "./core/guard/admin.guard";
+import {InscriptionComponent} from "./pages/inscription/inscription.component";
 
 
 const routes: Routes = [
@@ -21,11 +22,12 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: "home", component: HomeComponent },
-      { path: "missions/:userId", component: MissionsComponent, canActivate: [AuthIsLoggedGuard, AdminGuard] },
+      { path: "missions/:userId", component: MissionsComponent, canActivate: [AuthIsLoggedGuard] },
       { path: "connection", component: ConnectionComponent, canActivate: [AuthIsNotLoggedGuard] },
       { path: "registration", component: RegistrationComponent, canActivate: [AuthIsNotLoggedGuard] },
-      { path: "learners", component: LearnersComponent, canActivate: [AuthIsLoggedGuard, AdminGuard] },
+      { path: "learners", component: LearnersComponent, canActivate: [AuthIsLoggedGuard] },
       { path: "profile/:userId", component: ProfileComponent, canActivate: [AuthIsLoggedGuard, AdminGuard] },
+      { path: "inscription/:userId", component: InscriptionComponent, canActivate: [AuthIsLoggedGuard] }
     ],
 
   },

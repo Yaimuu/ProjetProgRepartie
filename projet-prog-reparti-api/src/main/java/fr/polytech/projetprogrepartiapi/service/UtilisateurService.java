@@ -3,6 +3,7 @@ package fr.polytech.projetprogrepartiapi.service;
 import fr.polytech.projetprogrepartiapi.controller.UtilisateurController;
 import fr.polytech.projetprogrepartiapi.entities.Inscription;
 import fr.polytech.projetprogrepartiapi.entities.Utilisateur;
+import fr.polytech.projetprogrepartiapi.repositories.InscriptionRepository;
 import fr.polytech.projetprogrepartiapi.repositories.UtilisateurRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class UtilisateurService {
     }
 
     public void deleteUtilisateur(Utilisateur utilisateur){
-        utilisateurRepository.delete(utilisateur);
+        this.utilisateurRepository.delete(utilisateur);
     }
 
     public List<Inscription> getAllInscriptionsFromUser(Utilisateur utilisateur){
@@ -69,6 +70,5 @@ public class UtilisateurService {
 
         return null;
     }
-
 
 }

@@ -11,15 +11,15 @@ export class UrlService {
   constructor(private router: Router,
               private location: Location) { }
 
-  navigateToMissions(userId: number) {
-    this.router.navigate(["missions", userId], {
+  navigateToProfile(userId: number) {
+    this.router.navigate(["profile", userId], {
       queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
     });
   }
 
-  navigateToProfile(userId: number) {
+  navigateToMissions(userId: number) {
     this.router.navigateByUrl("/", { skipLocationChange: true })
-      .then(() => this.router.navigate(["profile", userId], {
+      .then(() => this.router.navigate(["missions", userId], {
         queryParamsHandling: "merge", queryParams: { magicLinkToken: null, token: null }
       }));
   }

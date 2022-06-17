@@ -39,7 +39,7 @@ public class Utilisateur {
     @Basic
     @Column(name = "forename", nullable = true, length = 50)
     private String forename;
-    @OneToMany(mappedBy = "utilisateurByFkUser")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateurByFkUser")
     @JsonBackReference
     private List<Inscription> inscriptionsById;
 

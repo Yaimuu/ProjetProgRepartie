@@ -15,7 +15,7 @@
     </div>
 
     <p class="missions-tips">
-      Cliquez sur un jeu pour voir les missions.
+      Cliquez sur une missions pour voir les actions.
     </p>
 
     <ng-container *ngFor="let inscription of userInscriptions">
@@ -29,9 +29,16 @@
       </div>
       <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
         <ng-container *ngFor="let action of inscription.actions">
-              <p class="action-wording">
-                {{action.wording}}
-              </p>
+          <div class="collapsible-block-content">
+            <p class="action-wording">
+              {{action.wording}}
+            </p>
+            <ng-container *ngIf="canSimulate()">
+              <app-button [text]="'Simuler'"
+                          [color]="'var(--light_green)'"
+                          (click)="simulate(action.id)"></app-button>
+            </ng-container>
+          </div>
         </ng-container>
       </div>
     </ng-container>

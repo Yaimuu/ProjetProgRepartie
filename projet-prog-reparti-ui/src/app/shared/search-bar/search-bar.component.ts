@@ -54,9 +54,9 @@ export class SearchBarComponent implements OnInit {
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  redirectToProfile(learnerId: number) {
+  redirectToMissions(learnerId: number) {
       this.inputValue = "";
-      this.urlService.navigateToProfile(learnerId);
+      this.urlService.navigateToMissions(learnerId);
   }
 
 }

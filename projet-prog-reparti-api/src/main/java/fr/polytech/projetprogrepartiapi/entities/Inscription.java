@@ -27,7 +27,7 @@ public class Inscription {
     @JoinColumn(name = "fk_mission", referencedColumnName = "id", nullable = false)
     private Mission missionByFkMission;
     @JsonBackReference
-    @OneToMany(mappedBy = "inscriptionByFkInscription")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscriptionByFkInscription")
     private Collection<InscriptionAction> inscriptionActionsById;
 
     protected Inscription(){}

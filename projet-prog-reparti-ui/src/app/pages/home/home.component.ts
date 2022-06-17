@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit {
     this.currentDate = this.datePipe.transform(this.date, 'dd MMMM YYYY hh:mm:ss z');
   }
 
-
+  isUserLoggedIn() {
+    const user = sessionStorage.getItem("username");
+    return !(user === null);
+  }
 
 }

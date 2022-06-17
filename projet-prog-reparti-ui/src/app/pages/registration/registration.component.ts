@@ -60,6 +60,7 @@ export class RegistrationComponent implements OnInit {
       () => {
         sessionStorage.setItem("username", this.form.login);
         sessionStorage.setItem("role", "learner");
+        // TODO : sessionStorage.setItem("id", data.numUtil);
         this.urlService.navigateToHome();
       },
       err => {

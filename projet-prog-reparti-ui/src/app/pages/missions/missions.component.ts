@@ -28,7 +28,6 @@ export class MissionsComponent implements OnInit {
     const userId = this.urlService.getLearnerId();
     this.apiService.getInscriptionsForUser(userId).subscribe(
       (data: UserInscription[]) => {
-        console.log(data);
         for (const inscription of data){
           this.userInscriptions.push(new UserInscription(inscription));
             if (inscription.id != null) {
@@ -88,6 +87,17 @@ export class MissionsComponent implements OnInit {
       }
     }
     return "fas fa-caret-down";
+  }
+
+  simulate(actionId: number) {
+
+  }
+
+  canSimulate() {
+    const role = sessionStorage.getItem("role");
+    const id = Number(sessionStorage.getItem("id"));
+    const urlId = this.urlService.getLearnerId();
+    return (role != null && role == "admin") || (id != null && id == urlId);
   }
 
 }
