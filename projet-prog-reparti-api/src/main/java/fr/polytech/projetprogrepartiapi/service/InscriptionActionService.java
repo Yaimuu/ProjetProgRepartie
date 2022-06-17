@@ -1,5 +1,6 @@
 package fr.polytech.projetprogrepartiapi.service;
 
+import fr.polytech.projetprogrepartiapi.entities.Action;
 import fr.polytech.projetprogrepartiapi.entities.Inscription;
 import fr.polytech.projetprogrepartiapi.entities.InscriptionAction;
 import fr.polytech.projetprogrepartiapi.repositories.InscriptionActionRepository;
@@ -40,5 +41,13 @@ public class InscriptionActionService {
 
     public Collection<InscriptionAction> getInscriptionsActionsFromInscription(Inscription inscription){
         return inscription.getInscriptionActionsById();
+    }
+
+    public InscriptionAction getInscriptionActionFromValue(Inscription inscription, Action action){
+        Optional<InscriptionAction> tryInscriptionAction = inscriptionActionRepository.findByValues(inscription, action);
+        if(tryInscriptionAction.isPresent()){
+            return tryInscriptionAction.get();
+        }
+        return null;
     }
 }
