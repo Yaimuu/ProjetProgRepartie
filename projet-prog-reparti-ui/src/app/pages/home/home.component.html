@@ -24,6 +24,9 @@
                 <li>
                   <a routerLink="/registration">Enregistrer en tant qu'apprenant</a>
                 </li>
+                <li>
+                  <a routerLink="/connection">Connecter avec un compte administrateur ou apprenant</a>
+                </li>
               </ng-container>
               <ng-container *ngIf="isUserLoggedIn() && !isUserAdmin()">
                 <li>
