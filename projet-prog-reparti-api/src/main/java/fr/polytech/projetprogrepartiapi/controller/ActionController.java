@@ -64,7 +64,7 @@ public class ActionController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         Action action = actionService.getActionById(idAction).get();
-        InscriptionAction inscriptionAction = new InscriptionAction(inscriptionService.getInscriptionById(idInscription).get(), action);
+        InscriptionAction inscriptionAction = inscriptionActionService.getInscriptionActionFromValue(inscriptionService.getInscriptionById(idInscription).get(), action);
 
         if(u != null) {
 
