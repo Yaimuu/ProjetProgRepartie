@@ -1,6 +1,7 @@
 package fr.polytech.projetprogrepartiapi.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -26,8 +27,6 @@ public class Action {
     @JsonBackReference
     @OneToMany(mappedBy = "actionByFkAction")
     private Collection<Action> actionsById;
-
-
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

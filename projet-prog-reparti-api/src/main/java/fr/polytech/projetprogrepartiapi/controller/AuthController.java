@@ -128,7 +128,7 @@ public class AuthController {
 
         byte[] salt = PasswordHelper.GenerateSalt();
         byte[] password = PasswordHelper.generatePasswordHash(mappedRequest.get("password").toString().toCharArray(), salt);
-        long id = uService.getNumberUtilisateurs() + 1;
+        long id = utilisateurRepository.getMaxNumUtilisateur() + 1;
 
         Utilisateur userToRegister = new Utilisateur((int) id,
                 (String) mappedRequest.get("login"),
@@ -140,6 +140,9 @@ public class AuthController {
         userToRegister.setSurname(mappedRequest.get("surname").toString());
         userToRegister.setEmail(mappedRequest.get("email").toString());
         uService.createUtilisateur(userToRegister);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("id", (int) id);
 
         return ResponseEntity.ok(userToRegister);
     }

@@ -109,8 +109,6 @@ public class UtilisateurController {
                 if(!orginalUser.isPresent())
                     return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
-
-
                 Utilisateur utilisateurOriginal = orginalUser.get();
                 if(mappedRequest.get("nomUtil")!=null){
                     utilisateurOriginal.setNomUtil(mappedRequest.get("nomUtil").toString());
@@ -148,12 +146,10 @@ public class UtilisateurController {
         Utilisateur u = uService.getAutenticatedUtilisateur(request);
         if(u != null)
         {
-            if(uService.isAdmin(u.getNumUtil()) || u.getNumUtil() == id){
-                Optional<Utilisateur> uconcerne = uService.getUtilisateurById(id);
-                if(uconcerne.isPresent()){
-                    List<Inscription> inscriptionsUser = uService.getAllInscriptionsFromUser(uconcerne.get());
-                    return ResponseEntity.ok(inscriptionsUser);
-                }
+            Optional<Utilisateur> uconcerne = uService.getUtilisateurById(id);
+            if(uconcerne.isPresent()){
+                List<Inscription> inscriptionsUser = uService.getAllInscriptionsFromUser(uconcerne.get());
+                return ResponseEntity.ok(inscriptionsUser);
             }
         }
 

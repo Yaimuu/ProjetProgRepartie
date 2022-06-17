@@ -24,6 +24,8 @@ public class Indicator {
     @JoinColumn(name = "fk_action", referencedColumnName = "id", nullable = false)
     private Action actionByFkAction;
 
+    private boolean isChecked;
+
     protected Indicator(){}
     public Indicator(Action action){
         actionByFkAction = action;
@@ -66,5 +68,13 @@ public class Indicator {
 
     public void setActionByFkAction(Action actionByFkAction) {
         this.actionByFkAction = actionByFkAction;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }
