@@ -56,5 +56,26 @@ export class ApiService {
   getInscriptionsForUser(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'user/' + id + '/inscriptions', this.httpOptions);
   }
+
+  getMissions(): Observable<any> {
+    return this.http.get(this.baseUrl + 'missions', this.httpOptions);
+  }
+
+  registerUserToMission(userId: number, missionId: number): Observable<any> {
+    return this.http.post(this.baseUrl + 'inscription/register/' + userId + '/' + missionId, {}, this.httpOptions);
+  }
+
+  removeInscription(inscriptionId: number) {
+    return this.http.post(this.baseUrl + 'inscription/remove/' + inscriptionId, {}, this.httpOptions);
+  }
+
+  simulerAction(idAction: number, idInscription: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'action/simuler/' + idAction + '/' + idInscription, this.httpOptions);
+  }
+
+  getInscriptionsActions(idInscription: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'inscription/' + idInscription + '/actions', this.httpOptions);
+  }
+
 }
 

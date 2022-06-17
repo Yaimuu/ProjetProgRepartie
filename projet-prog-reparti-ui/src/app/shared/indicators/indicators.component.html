@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Bilan de la simulation : "{{simulationName | lowercase}}"</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Indicateurs (<span class="red-indicator">Rouge</span> : non validé - <span class="green-indicator">Vert</span> : validé)</h3>
+  <ng-container *ngFor="let indicator of simulation.indicators">
+    <div class="indicators-content">
+      <p [class]="getColor(indicator)">
+        {{indicator.wording}}
+      </p>
+      <input type="checkbox" [checked]="indicator.checked" onclick="return false">
+    </div>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-button [text]="'D\'accord'"
+              [color]="'var(--black)'"
+              [mat-dialog-close]="true"></app-button>
+</mat-dialog-actions>

@@ -25,18 +25,31 @@
         <p>
           {{inscription.mission}} <span class="date_color">inscrit le {{inscription.date}}</span>
         </p>
+        <div class="delete-button">
+          <ng-container *ngIf="isRemovable(inscription.id)">
+            <app-button [text]="'Supprimer'"
+                        [color]="'var(--red)'"
+                        (click)="removeInscription(inscription.id)"></app-button>
+          </ng-container>
+        </div>
         <i [class]="getCaretIcon(inscription.id)"></i>
       </div>
       <div class="collapsible-block" [hidden]="isCollapsibleHidden(inscription.id)">
         <ng-container *ngFor="let action of inscription.actions">
           <div class="collapsible-block-content">
-            <p class="action-wording">
+            <p [ngClass]="!getScore(inscription.id, action.id) ? '' : isValid(inscription.id, action.id) ? 'green-score': 'red-score'">
               {{action.wording}}
             </p>
-            <ng-container *ngIf="canSimulate()">
+            <ng-container *ngIf="getScore(inscription.id, action.id) != null">
+                <p [ngClass]="isValid(inscription.id, action.id) ? 'green-score': 'red-score'">
+                  Score : {{getScore(inscription.id, action.id)}}
+                  (minimum requis : {{action.scoreMinimum}})
+                </p>
+            </ng-container>
+            <ng-container *ngIf="canSimulate() && getScore(inscription.id, action.id) == null">
               <app-button [text]="'Simuler'"
                           [color]="'var(--light_green)'"
-                          (click)="simulate(action.id)"></app-button>
+                          (click)="simulerAction(action.id, inscription.id, action.wording)"></app-button>
             </ng-container>
           </div>
         </ng-container>

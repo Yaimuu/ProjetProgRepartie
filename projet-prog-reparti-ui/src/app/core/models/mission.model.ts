@@ -8,10 +8,9 @@ export class Mission {
       this.id = data.id;
       this.wording = data.wording;
       this.actions = data.actions;
-      // if(data.missionByFkMission != null) {
-      //   this.wording = data.missionByFkMission.wording;
-      //   this.actions = data.missionByFkMission.actionsById;
-      // }
+      if(data.actionsById != null) {
+         this.actions = data.actionsById;
+      }
     }
   }
 }

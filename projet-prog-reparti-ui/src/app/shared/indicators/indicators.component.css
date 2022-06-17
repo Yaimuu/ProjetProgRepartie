@@ -1,0 +1,20 @@
+.red-indicator {
+  color: var(--red);
+}
+
+.green-indicator {
+  color: var(--dark_green);
+}
+
+.indicators-content {
+  display: flex;
+  align-items: baseline;
+}
+
+.indicators-content input {
+  margin-left: 8px;
+}
+
+p {
+  font-size: 16px;
+}

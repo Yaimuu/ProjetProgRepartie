@@ -16,3 +16,7 @@ th.mat-header-cell, td {
   border-radius: 8px;
   margin: 16px 0;
 }
+
+.action-wording {
+  margin-bottom: 8px;
+}
