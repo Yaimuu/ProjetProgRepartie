@@ -1,0 +1,34 @@
+<header>
+
+    <div class="menu-first-part">
+      <a routerLink="/home"><h1>Permis piste</h1></a>
+
+      <ng-container *ngIf="isUserLoggedIn()">
+        <app-search-bar></app-search-bar>
+      </ng-container>
+
+      <ng-container *ngIf="isUserLoggedIn()">
+        <p class="user-infos"><i>User : {{getIdentity()}}</i></p>
+      </ng-container>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a routerLink="/home">Accueil</a></li>
+            <ng-container *ngIf="isUserLoggedIn()">
+              <li><a routerLink="/learners">Apprenants</a></li>
+            </ng-container>
+          <ng-container *ngIf="isUserLoggedIn() && !isUserAdmin()">
+            <li><a routerLink="/inscription">Inscription</a></li>
+            <li><a (click)="urlService.navigateToMissions(getUserId())">Actions</a></li>
+          </ng-container>
+            <ng-container *ngIf="!isUserLoggedIn()">
+              <li><a routerLink="/connection">Connexion</a></li>
+              <li><a routerLink="/registration">Rejoindre</a></li>
+            </ng-container>
+            <ng-container *ngIf="isUserLoggedIn()">
+              <li><a routerLink="" (click)="logout()">Déconnexion</a></li>
+            </ng-container>
+        </ul>
+    </nav>
+</header>

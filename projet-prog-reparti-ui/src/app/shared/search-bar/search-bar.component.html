@@ -1,0 +1,22 @@
+<div class="search-bar">
+  <div class="search-icon">
+    <mat-icon>search</mat-icon>
+  </div>
+  <mat-form-field appearance="fill">
+    <input type="text"
+           placeholder="Nom de l'apprenant"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto"
+           [(ngModel)]="inputValue">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async"
+                  [value]="option.name"
+                  (click)="redirectToMissions(option.id)">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+
+

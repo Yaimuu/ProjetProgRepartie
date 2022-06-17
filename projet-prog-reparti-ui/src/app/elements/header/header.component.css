@@ -1,0 +1,48 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    background-color: var(--black);
+    color: var(--white);
+}
+
+header > .menu-first-part {
+  display: flex;
+  align-items: center;
+}
+
+
+header > nav {
+    padding: 0.5em;
+}
+
+header > nav > ul{
+    display: flex;
+    justify-content: space-around;
+}
+
+header > nav > ul, li, a {
+    text-decoration: none;
+    list-style: none;
+
+    margin-right: 1em;
+
+    color: var(--white);
+}
+
+header > h1 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+a:hover {
+  color: var(--light_green);
+  cursor: pointer;
+}
+
+.user-infos {
+  margin: 0 32px;
+}

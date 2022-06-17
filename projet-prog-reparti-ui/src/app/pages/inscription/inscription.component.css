@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+th.mat-header-cell, td {
+  text-align: center;
+}
+
+.validation-block {
+  background-color: var(--dark_green);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.action-wording {
+  margin-bottom: 8px;
+}
