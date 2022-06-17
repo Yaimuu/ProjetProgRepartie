@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../core/services/api.service";
 import {UrlService} from "../../core/services/url.service";
 import {UserInscription} from "../../core/models/UserInscription.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-missions',
@@ -13,6 +14,8 @@ export class MissionsComponent implements OnInit {
   identity: string = "";
 
   userInscriptions: UserInscription[] = [];
+
+  inscriptionsActions: any[] = [];
 
   hiddenCollapsible: Map<number, boolean> = new Map<number, boolean>();
 
@@ -30,9 +33,14 @@ export class MissionsComponent implements OnInit {
       (data: UserInscription[]) => {
         for (const inscription of data){
           this.userInscriptions.push(new UserInscription(inscription));
-            if (inscription.id != null) {
-              this.hiddenCollapsible.set(inscription.id, true);
+          if (inscription.id != null) {
+            this.hiddenCollapsible.set(inscription.id, true);
+          }
+          this.apiService.getInscriptionsActions(Number(inscription.id)).subscribe(
+            (data) => {
+                this.inscriptionsActions.push(data);
             }
+          );
         }
       },
       err => {
@@ -89,16 +97,37 @@ export class MissionsComponent implements OnInit {
     return "fas fa-caret-down";
   }
 
-  simulate(actionId: number) {
-
-  }
-
   canSimulate() {
     const role = sessionStorage.getItem("role");
     const id = Number(sessionStorage.getItem("id"));
     const urlId = this.urlService.getLearnerId();
     return (role != null && role == "admin") || (id != null && id == urlId);
   }
+
+  getScore(inscriptionId: any, actionId: any) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            return action.score;
+          }
+        }
+      }
+    }
+  }
+
+  setScore(inscriptionId: any, actionId: any, score: number) {
+    if (this.inscriptionsActions.length > 0) {
+      for(const inscription of this.inscriptionsActions) {
+        for(const action of inscription) {
+          if (inscriptionId == action.inscriptionByFkInscription.id && actionId == action.actionByFkAction.id) {
+            action.score = score;
+          }
+        }
+      }
+    }
+  }
+
 
   removeInscription(inscriptionId: any) {
     this.apiService.removeInscription(inscriptionId).subscribe(
@@ -110,6 +139,17 @@ export class MissionsComponent implements OnInit {
           }
         }
         this.userInscriptions = newData;
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  simulerAction(actionId: any, inscriptionId: any) {
+    this.apiService.simulerAction(actionId, inscriptionId).subscribe(
+      (data) => {
+        this.setScore(inscriptionId, actionId, data.score);
       },
       err => {
         console.log(err.error.message);

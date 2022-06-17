@@ -69,5 +69,13 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'inscription/remove/' + inscriptionId, {}, this.httpOptions);
   }
 
+  simulerAction(idAction: number, idInscription: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'action/simuler/' + idAction + '/' + idInscription, this.httpOptions);
+  }
+
+  getInscriptionsActions(idInscription: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'inscription/' + idInscription + '/actions', this.httpOptions);
+  }
+
 }
 
