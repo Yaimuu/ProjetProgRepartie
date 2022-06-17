@@ -11,10 +11,12 @@
 
 Ce projet a été réalisé à l'aide de l'environnement de développement IntelliJ IDEA.
 
-Les frameworks utilisées sont Angular et SpringBoot, la version du JDK est 17.0.2
+Les frameworks utilisées sont Angular et SpringBoot, la version du JDK est 17.0.2.
 
 Pour tester notre application web, il suffit de build le projet avec IntelliJ (qui vous proposera l'installation du framework Angular)
 puis d'exécuter respectivement les parties back et front. 
+
+Attention : NodeJS doit être préalablement installé sur votre ordinateur (https://nodejs.org/en/).
 
 Il existe trois parcours "utilisateur" différents :
 - administrateur (John Merlot) : il peut modifier ou supprimer un apprenant, consulter les missions d'un apprenant, supprimer une mission non commencé et simuler l'action d'autrui. 
